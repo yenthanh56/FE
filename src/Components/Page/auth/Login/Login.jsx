@@ -7,12 +7,8 @@ import styles from "./Login.module.scss";
 import Modal from "~/Components/UI/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import {
-	loginUser,
-	getAllUser,
-	selectAllUser,
-} from "~/Components/store/authSlice";
-import { getAllUserOrder } from "~/Components/store/order/orderSlice";
+import { loginUser } from "~/Components/store/authSlice";
+
 import Button from "~/Components/UI/Button/Button";
 
 const cx = className.bind(styles);
