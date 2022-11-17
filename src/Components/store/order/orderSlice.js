@@ -67,7 +67,7 @@ export const createUserOrder = async (userOrder, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.post(
-			"http://localhost:8080/v1/userorder/create",
+			"https://apitiki-myapp.herokuapp.com/v1/create",
 			userOrder
 		);
 
