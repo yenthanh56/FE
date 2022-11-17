@@ -85,7 +85,9 @@ export const createUserOrder = async (userOrder, dispatch, navigate) => {
 export const getAllUserOrder = async (dispatch) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get(`http://localhost:8080/v1/userorder`);
+		const res = await axios.get(
+			`https://apitiki-myapp.herokuapp.com/v1/userorder`
+		);
 		dispatch(setUserOrder(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {
@@ -96,7 +98,9 @@ export const getAllUserOrder = async (dispatch) => {
 export const getUserOrdered = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get(`http://localhost:8080/v1/userorder/${id}`);
+		const res = await axios.get(
+			`https://apitiki-myapp.herokuapp.com/v1/userorder/${id}`
+		);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {
@@ -108,7 +112,7 @@ export const deleteUserOrdered = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.delete(
-			`http://localhost:8080/v1/userorder/${id}`
+			`https://apitiki-myapp.herokuapp.com/v1/userorder/${id}`
 		);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));

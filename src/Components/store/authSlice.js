@@ -68,7 +68,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 
 	try {
 		const res = await axios.post(
-			"http://localhost:8080/v1/auth/login",
+			"https://apitiki-myapp.herokuapp.com/v1/auth/login",
 			user
 		);
 		if (!user) {
@@ -87,7 +87,7 @@ export const registerUser = async (user, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.post(
-			"http://localhost:8080/v1/auth/register",
+			"https://apitiki-myapp.herokuapp.com/v1/auth/register",
 			user
 		);
 		dispatch(setLogin(res.data));
