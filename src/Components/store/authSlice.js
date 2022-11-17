@@ -53,18 +53,18 @@ export default authSlice.reducer;
 // http://localhost:8080/v1/auth/register
 //"https://apitiki-myapp.herokuapp.com/v1/auth/login",
 
-// export const getAllUser = async (dispatch) => {
-// 	dispatch(setStatus(STATUS.LOADING));
-// 	try {
-// 		const res = await axios.get(
-// 			"https://apitiki-myapp.herokuapp.com/v1/userauth"
-// 		);
-// 		dispatch(setLogin(res.data));
-// 		dispatch(setStatus(STATUS.SUCCESS));
-// 	} catch (error) {
-// 		dispatch(setStatus(STATUS.ERROR));
-// 	}
-// };
+export const getAllUser = async (dispatch) => {
+	dispatch(setStatus(STATUS.LOADING));
+	try {
+		const res = await axios.get(
+			"https://apitiki-myapp.herokuapp.com/v1/userauth"
+		);
+		dispatch(setLogin(res.data));
+		dispatch(setStatus(STATUS.SUCCESS));
+	} catch (error) {
+		dispatch(setStatus(STATUS.ERROR));
+	}
+};
 export const loginUser = async (user, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 
