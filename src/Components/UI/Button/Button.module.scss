@@ -1,8 +1,12 @@
 @use "../../../scss/" as *;
 
-button {
+.button {
 	cursor: pointer;
 	padding: 0.75rem 2rem;
+
+	+ .button {
+		margin-left: 8px;
+	}
 }
 
 .text {

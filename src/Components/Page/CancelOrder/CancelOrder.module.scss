@@ -1,4 +1,67 @@
 @use "../../../scss/" as *;
 
 .cancel {
+	width: 1270px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	&__title {
+		margin-top: 28px;
+		margin-bottom: 50px;
+		text-align: center;
+		font-size: 2.5rem;
+	}
+
+	&__information {
+		width: 1240px;
+		margin-right: auto;
+		margin-left: auto;
+		padding: 15px;
+		position: relative;
+		font-size: 1.5rem;
+		&__title {
+			margin-top: 24px;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 60px;
+			grid-template-rows: repeat(1, 1fr);
+			font-size: 1.7rem;
+			text-align: center;
+		}
+		&__textarea {
+			width: 60%;
+			margin: 0 auto;
+			width: 60%;
+			min-height: 150px;
+		}
+		&__whycancel {
+			textarea {
+				margin-top: 12px;
+				padding: 10px;
+				width: 100%;
+				font-size: 2.5rem;
+				border-radius: 4px;
+				resize: none;
+			}
+			&__text {
+				display: flex;
+				align-items: center;
+				justify-content: space-evenly;
+				font-size: 2.5rem;
+				label {
+					min-width: 450px;
+				}
+				input {
+					width: 25px;
+					height: 25px;
+				}
+			}
+		}
+
+		&__actions {
+			margin-top: 24px;
+			@include flex(center, center);
+		}
+	}
 }

@@ -32,6 +32,10 @@ import NotPage from "~/Components/Page/NotPage/NotPage";
 
 // product detail page sugguestToday
 import MytodayDetail from "~/Components/Page/Detail/MyToDay/MyToDayDetail";
+import CancelOrder from "../Page/CancelOrder/CancelOrder";
+import Admin from "../Page/Admin/Admin";
+import UpDealhot from "../Page/Admin/Page/UpDealhot/UpDealhot";
+import UpForYou from "../Page/Admin/Page/UpForYou/UpForYou";
 
 export const publicRouters = [
 	{ path: "/", component: Home },
@@ -67,6 +71,14 @@ export const publicRouters = [
 	{ path: "/users/register", component: Register, layout: null },
 	{ path: "/pay", component: Pay, layout: HeaderOnly },
 
+	// why cancel Order
+	{ path: "/cancelorder/:id", component: CancelOrder, layout: HeaderOnly },
+
 	// user ordered UserOrdered
 	{ path: "/ordered", component: UserOrdered, layout: HeaderOnly },
+
+	// admin
+	{ path: "/admin/thanhngo", component: Admin, layout: null },
+	{ path: "/admin/thanhngo/updealhot", component: UpDealhot, layout: null },
+	{ path: "/admin/thanhngo/upforyou", component: UpForYou, layout: null },
 ];

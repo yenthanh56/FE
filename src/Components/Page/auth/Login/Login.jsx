@@ -9,6 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { loginUser } from "~/Components/store/authSlice";
 
+import Google from "../../../img/google.png";
+import Facebook from "../../../img/facebook.png";
+import Github from "../../../img/github.png";
+
 import Button from "~/Components/UI/Button/Button";
 
 const cx = className.bind(styles);
@@ -52,6 +56,19 @@ const Login = (props) => {
 		}
 	};
 
+	// login social media
+	const google = () => {
+		window.open("http://localhost:4000/auth/google", "_self");
+	};
+
+	const github = () => {
+		window.open("http://localhost:4000/auth/github", "_self");
+	};
+
+	const facebook = () => {
+		window.open("http://localhost:4000/auth/facebook", "_self");
+	};
+
 	return (
 		<Modal isCloseModal={isCloseModal}>
 			<form className={cx("form")} onSubmit={onSubmitHandler}>
@@ -84,6 +101,21 @@ const Login = (props) => {
 						</span>
 					</Link>
 				</span>
+			</div>
+			<div>
+				Login Social Media
+				<div className="loginButton google" onClick={google}>
+					<img src={Google} alt="" className="icon" />
+					Google
+				</div>
+				<div className="loginButton facebook" onClick={facebook}>
+					<img src={Facebook} alt="" className="icon" />
+					Facebook
+				</div>
+				<div className="loginButton github" onClick={github}>
+					<img src={Github} alt="" className="icon" />
+					Github
+				</div>
 			</div>
 			<Button className={cx("form__close")} to="/" onClick={isCloseModal}>
 				<FontAwesomeIcon icon={faXmark} />

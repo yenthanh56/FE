@@ -54,8 +54,8 @@ const SuggestTodays = () => {
 		};
 	}, [type]);
 
-	const lastPostIndex = currentPage * postPage;
-	const firstPostIndex = lastPostIndex - postPage;
+	const lastPostIndex = currentPage * postPage; // 5
+	const firstPostIndex = lastPostIndex - postPage; // 0
 	const currentPosts = dataTodayForYou.slice(firstPostIndex, lastPostIndex);
 	// console.log(currentPosts);
 	// if (loading) {

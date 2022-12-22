@@ -9,7 +9,7 @@ import Modal from "~/Components/UI/Modal/Modal";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "~/Components/UI/Button/Button";
-import Valid from "~/Components/utils/Valid";
+
 import { registerUser } from "~/Components/store/authSlice";
 const cx = classNames.bind(styles);
 
@@ -43,14 +43,13 @@ const Register = (props) => {
 			password,
 			cf_password,
 		};
-		console.log({
-			username: username,
-			email: email,
-			password: password,
-			cf_password: cf_password,
-		});
-		const errorMessage = Valid(username, email, password, cf_password);
-		console.log(errorMessage);
+		// console.log({
+		// 	username: username,
+		// 	email: email,
+		// 	password: password,
+		// 	cf_password: cf_password,
+		// });
+
 		if (!username) {
 			usernameRef.current.focus();
 			return;

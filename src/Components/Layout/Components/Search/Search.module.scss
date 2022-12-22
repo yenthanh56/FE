@@ -1,0 +1,36 @@
+@use "../../../../scss/" as *;
+
+.search {
+	@include flex(center, center);
+	flex: 1;
+	height: 40px;
+	width: 450px;
+	input {
+		height: 100%;
+		flex: 1;
+		width: 100%;
+		padding: 0px 12px;
+	}
+	input:not(:placeholder-shown) ~ button {
+		color: rgba(22, 24, 35, 0.75);
+	}
+
+	button {
+		height: 100%;
+		width: 120px;
+		background-color: $btn-color-bg;
+		color: $white;
+		font-weight: 700;
+		border: none;
+		span {
+			margin-left: 8px;
+		}
+	}
+}
+
+.search__box {
+	width: 608px;
+	background-color: $white;
+	color: $text-second-color;
+	border-radius: 8px;
+}

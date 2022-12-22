@@ -6,18 +6,14 @@ import Button from "~/Components/UI/Button/Button";
 import { setDataNull } from "~/Components/store/cartSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllUser } from "~/Components/store/authSlice";
-import { selectAllCart } from "~/Components/store/cartSlice";
 import { toast } from "react-toastify";
 import NotPage from "~/Components/Page/NotPage/NotPage";
 import {
-	selectAllUserOrder,
-	getAllUserOrder,
 	userOrdered,
 	getUserOrdered,
 	deleteUserOrdered,
 } from "~/Components/store/order/orderSlice";
-// import UserOrderedItem from "../Cart/UserOrdered/UserOrderedItem";
+
 import PayItem from "./PayItem/PayItem";
 const cx = classNames.bind(styles);
 const Pay = () => {
@@ -25,7 +21,6 @@ const Pay = () => {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(true);
 	const user = useSelector((state) => state.auth?.login?.data);
-	// const cart = useSelector(selectAllCart);
 
 	const usersOrder = useSelector(userOrdered);
 
@@ -35,22 +30,26 @@ const Pay = () => {
 	};
 
 	const deleteOrderHandler = (id) => {
-		console.log(id);
-		deleteUserOrdered(dispatch, id);
+		setLoading(true);
 
-		if (window.confirm("Bạn có chắc xóa hủy đơn hàng này không!!!")) {
-			toast.success("Bạn đã hủy đơn hàng thành công");
+		console.log(id);
+
+		if (user?._id) {
+			navigate(`/cancelorder/${id}`);
+			return;
 		}
+		setLoading(false);
 	};
 
 	useEffect(() => {
 		setLoading(true);
+
+		// getAllUserOrder(dispatch);
 		if (user?.username) {
-			getAllUserOrder(dispatch);
 			getUserOrdered(dispatch, user?._id);
+			setLoading(false);
 		}
-		setLoading(false);
-	}, [dispatch, user?._id, user?.username, usersOrder?.orders]);
+	}, [dispatch, user?._id, user?.username, usersOrder?.orders?.length > 0]);
 
 	if (loading) {
 		return (
@@ -83,9 +82,9 @@ const Pay = () => {
 						{/* <div className={cx("pay__name")}>
 								<span>Tổng : {`${total?.toFixed(3)}`}</span>
 							</div> */}
-						<div>
+						<div style={{ textAlign: "center" }}>
 							{usersOrder?.orders &&
-							usersOrder?.orders?.length > 0 ? (
+								usersOrder?.orders?.length > 0 &&
 								usersOrder?.orders?.map((cartOrder) => {
 									return (
 										<PayItem
@@ -98,8 +97,9 @@ const Pay = () => {
 											}
 										/>
 									);
-								})
-							) : (
+								})}
+
+							{usersOrder?.orders?.length === 0 && (
 								<div
 									style={{
 										textAlign: "center",
@@ -131,3 +131,17 @@ const Pay = () => {
 };
 
 export default Pay;
+
+//  (
+// 	<div
+// 		style={{
+// 			textAlign: "center",
+// 			marginTop: "24px",
+// 		}}
+// 	>
+// 		<img
+// 			src="https://www.pngfind.com/pngs/m/272-2727925_continue-shopping-empty-cart-png-transparent-png.png"
+// 			alt="payempty"
+// 		/>
+// 	</div>
+// )

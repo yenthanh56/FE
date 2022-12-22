@@ -22,6 +22,7 @@ import { logoutUser } from "~/Components/store/authSlice";
 import { selectAllUser } from "~/Components/store/authSlice";
 
 import HeaderCart from "~/Components/Layout/Components/HeaderCart/HeaderCart";
+import Search from "../Search/Search";
 const cx = className.bind(styles);
 
 const mainAccounts = [
@@ -52,7 +53,7 @@ const mainAccounts = [
 	},
 ];
 
-const Header = () => {
+const Header = ({ user }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -72,6 +73,10 @@ const Header = () => {
 	const logoutHandler = () => {
 		setIsShowModal(false);
 		logoutUser(dispatch, navigate, accessToken);
+		logout();
+	};
+	const logout = () => {
+		window.open("http://localhost:4000/auth/logout", "_self");
 	};
 
 	return (
@@ -89,25 +94,13 @@ const Header = () => {
 						</div>
 						<div className={cx("header__mid")}>
 							<div className={cx("header__mid__search")}>
-								<input
-									type="text"
-									placeholder="Tìm sản phẩm, danh mục hay thương hiệu mong muốn ..."
-								/>
-								<button>
-									<i>
-										{" "}
-										<FontAwesomeIcon
-											icon={faMagnifyingGlass}
-										/>
-									</i>
-									<span>Tìm kiếm</span>
-								</button>
+								<Search />
 							</div>
 						</div>
 						<div className={cx("header__rigth")}>
 							{/* account  */}
 
-							{username && username?.username ? (
+							{user || (username && username?.username) ? (
 								<Tippy
 									interactive
 									placement="bottom-start"
@@ -167,8 +160,14 @@ const Header = () => {
 												)}
 											>
 												<img
-													src={username?.avatar}
-													alt={username?.username}
+													src={
+														username?.avatar ||
+														user.photos[0].value
+													}
+													alt={
+														username?.username ||
+														user.displayName
+													}
 												/>
 											</span>
 										</div>
@@ -190,7 +189,8 @@ const Header = () => {
 												)}
 											>
 												<span>
-													{username?.username}
+													{username?.username ||
+														user.displayName}
 												</span>
 												<span>
 													<i>

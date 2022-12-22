@@ -11,6 +11,8 @@
 		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 		gap: 20px;
 		grid-template-rows: repeat(1, 1fr);
+		font-size: 1.4rem;
+		text-align: center;
 	}
 	&__Paymentby {
 		@include flex(center, space-around);

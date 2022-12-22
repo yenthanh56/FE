@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "./CartItem.module.scss";
+import Button from "~/Components/UI/Button/Button";
 const cx = classNames.bind(styles);
 const CartItem = (props) => {
 	const { mainDeal, addItem, decreaseItem, clearItem } = props;
@@ -26,11 +27,14 @@ const CartItem = (props) => {
 				</div>
 
 				<div className={cx("cartitem__actions")}>
-					<button onClick={decreaseItem}>-</button>
-					<button onClick={addItem}>+</button>
+					<Button onClick={decreaseItem}>-</Button>
+
+					<Button onClick={addItem}>+</Button>
 				</div>
 				<div className={cx("cartitem__detele")}>
-					<button onClick={clearItem}> Xóa</button>
+					<Button onClick={clearItem} small>
+						Xóa
+					</Button>
 				</div>
 				<div className={cx("cartitem__totaloneproduct")}>
 					{totalOneProduct}

@@ -1,0 +1,11 @@
+@use "../../../scss/" as *;
+
+.cancelitem {
+	margin-top: 24px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 60px;
+	grid-template-rows: repeat(1, 1fr);
+	font-size: 1.7rem;
+	text-align: center;
+}

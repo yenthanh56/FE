@@ -1,0 +1,11 @@
+@use "../../../../scss/" as *;
+
+.productitem {
+	display: flex;
+	padding: 9px 16px;
+	align-items: center;
+	&:hover {
+		background-color: rgba(22, 24, 35, 0.03);
+		cursor: pointer;
+	}
+}

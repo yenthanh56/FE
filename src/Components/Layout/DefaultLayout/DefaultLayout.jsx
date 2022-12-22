@@ -5,10 +5,10 @@ import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
 // import Sidebar from "../DefaultLayout/Sidebar/Sidebar";
 const cx = className.bind(styles);
-const DefaultLayout = ({ children }) => {
+const DefaultLayout = ({ children, user }) => {
 	return (
 		<div>
-			<Header />
+			<Header user={user} />
 			<div className={cx("container")}>
 				<div className={cx("main")}>
 					{/* <Sidebar /> */}
