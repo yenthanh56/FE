@@ -15,7 +15,7 @@ const App = () => {
 
 	useEffect(() => {
 		const getUser = () => {
-			fetch("http://localhost:4000/auth/login/success", {
+			fetch("https://backend-api-lake.vercel.app/auth/login/success", {
 				method: "GET",
 				credentials: "include",
 				withCredentials: true,
