@@ -18,6 +18,7 @@ const App = () => {
 			fetch("http://localhost:4000/auth/login/success", {
 				method: "GET",
 				credentials: "include",
+				withCredentials: true,
 				headers: {
 					Accept: "application/json",
 					"Content-Type": "application/json",
