@@ -39,7 +39,9 @@ export default dealHotSlice.reducer;
 export const getAllDealHot = async (dispatch) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get("http://localhost:8080/v1/dealhot/");
+		const res = await axios.get(
+			"https://api-backend-nine.vercel.app/v1/dealhot/"
+		);
 		dispatch(setData(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {
@@ -49,7 +51,9 @@ export const getAllDealHot = async (dispatch) => {
 export const getDealHotSlug = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get(`http://localhost:8080/v1/dealhot/${id}`);
+		const res = await axios.get(
+			`https://api-backend-nine.vercel.app/v1/dealhot/${id}`
+		);
 		dispatch(setDetail(res.data));
 
 		dispatch(setStatus(STATUS.SUCCESS));
@@ -63,7 +67,7 @@ export const createDealHot = async (obj, dispatch) => {
 	try {
 		const res = await axios.post(
 			// "https://backend-api-kohl.vercel.app/v1/dealhot/create",
-			"http://localhost:8080/v1/dealhot/create",
+			"https://api-backend-nine.vercel.app/v1/dealhot/create",
 			obj
 		);
 		dispatch(setDetail(res.data));

@@ -93,7 +93,7 @@ export const getAllUserOrder = async (dispatch) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.get(
-			`https://backend-api-lake.vercel.app/v1/userorder`
+			`https://api-backend-nine.vercel.app/v1/userorder`
 		);
 		dispatch(setUserOrder(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
@@ -106,7 +106,7 @@ export const getUserOrdered = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.get(
-			`https://backend-api-lake.vercel.app/${id}`
+			`https://api-backend-nine.vercel.app/${id}`
 		);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
@@ -119,7 +119,7 @@ export const deleteUserOrdered = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.delete(
-			`https://backend-api-lake.vercel.app/${id}`
+			`https://api-backend-nine.vercel.app/${id}`
 		);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));

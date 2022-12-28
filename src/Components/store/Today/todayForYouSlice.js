@@ -37,7 +37,7 @@ export const getAllForYou = async (dispatch, type) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.get(
-			`https://apitiki-myapp.herokuapp.com/v1/${type}`
+			`https://api-backend-nine.vercel.app/v1/${type}`
 		);
 		dispatch(setData(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
@@ -50,7 +50,7 @@ export const getMyTodaySlug = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.get(
-			`https://apitiki-myapp.herokuapp.com/v1/foryou/${id}`
+			`https://api-backend-nine.vercel.app/v1/foryou/${id}`
 		);
 		dispatch(setDetail(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));

@@ -56,7 +56,9 @@ export default authSlice.reducer;
 export const getAllUser = async (dispatch) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get("http://localhost:8080/v1/user");
+		const res = await axios.get(
+			"https://api-backend-nine.vercel.app/v1/user"
+		);
 		dispatch(setLogin(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {
@@ -68,7 +70,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 
 	try {
 		const res = await axios.post(
-			"https://backend-api-tiki.vercel.app/v1/auth/login",
+			"https://api-backend-nine.vercel.app/v1/auth/login",
 			user
 		);
 		if (!user) {
@@ -87,7 +89,7 @@ export const registerUser = async (user, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.post(
-			"https://backend-api-tiki.vercel.app/v1/auth/register",
+			"https://api-backend-nine.vercel.app/v1/auth/register",
 			user
 		);
 		dispatch(setLogin(res.data));
