@@ -3,15 +3,16 @@ import className from "classnames/bind";
 import styles from "./UpDealhot.module.scss";
 import { useDispatch } from "react-redux";
 import { createDealHot } from "~/Components/store/DealHot/DealHotSlice";
+import { makeRequest } from "~/axios";
 
 const cx = className.bind(styles);
 
 const UpDealhot = () => {
 	const dispatch = useDispatch();
-	const [image, setImage] = useState();
+	const [image, setImage] = useState(null);
 	const [detail, setDetail] = useState({
 		title: "",
-		image: image?.preview,
+		image: "",
 		price: "",
 		priceOld: "",
 		star: "",
@@ -25,7 +26,7 @@ const UpDealhot = () => {
 
 	const onChangeHandler = (e) => {
 		const { name, value } = e.target;
-		if (name === "image") {
+		if (name === image) {
 			const file = e.target.files[0];
 			file.preview = URL.createObjectURL(file);
 			setImage(file);
@@ -38,9 +39,10 @@ const UpDealhot = () => {
 		});
 	};
 
-	const onSubmitHandler = (e) => {
+	const onSubmitHandler = async (e) => {
 		e.preventDefault();
-		createDealHot(detail, dispatch);
+		// createDealHot(detail, dispatch);
+
 		console.log(detail);
 	};
 

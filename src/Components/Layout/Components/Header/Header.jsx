@@ -76,7 +76,7 @@ const Header = ({ user }) => {
 		logout();
 	};
 	const logout = () => {
-		window.open("http://localhost:4000/auth/logout", "_self");
+		window.open("http://localhost:5000/auth/logout", "_self");
 	};
 
 	return (
