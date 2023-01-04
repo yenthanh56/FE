@@ -74,7 +74,7 @@ export const createUserOrder = async (userOrder, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.post(
-			"https://backend-api-kohl.vercel.app/v1/userorder/create",
+			"https://api-backend-nine.vercel.app/v1/userorder/create",
 			userOrder
 		);
 
