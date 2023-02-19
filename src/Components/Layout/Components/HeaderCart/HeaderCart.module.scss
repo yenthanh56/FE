@@ -1,26 +1,57 @@
 @use "../../../../scss/" as *;
 
 .header__cart {
-	margin-left: 24px;
+	margin-left: 1rem;
 	position: relative;
+	padding: 0;
+	top: 0.2rem;
 	&:hover {
 		cursor: pointer;
 	}
 	&__icon {
 		font-size: 2.5rem;
+		@include tablet {
+			font-size: 2rem;
+		}
+		@include mobile {
+			font-size: 1.5rem;
+		}
 	}
 	&__badge {
 		color: $black;
 		background-color: rgb(253, 216, 53);
 		position: absolute;
 		top: -9px;
+		width: 20px;
 		height: 20px;
 		line-height: 20px;
-		border-radius: 40px;
+		border-radius: 50%;
 		left: 12px;
-		padding: 0 7px;
+		text-align: center;
+
+		@include tablet {
+			top: -16px;
+			height: 35px;
+			line-height: 35px;
+			left: 26px;
+			width: 35px;
+			text-align: center;
+			font-size: 1.3rem;
+		}
+		@include mobile {
+			top: -10px;
+			height: 30px;
+			line-height: 30px;
+			left: 18px;
+			width: 30px;
+			text-align: center;
+			font-size: 1rem;
+		}
 	}
-	span {
+	&__name {
+		@include tablet {
+			display: none;
+		}
 		font-size: 1.2rem;
 		margin-left: 4px;
 	}

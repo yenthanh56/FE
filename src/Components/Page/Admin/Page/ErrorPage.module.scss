@@ -1,0 +1,23 @@
+@use "../../../../scss/" as *;
+
+.wrapper {
+	width: 100%;
+	height: 100vh;
+	background-image: url("http://www.ajeforum.com/wp-content/uploads/2018/04/Error_Culture_Florent_Darrault2.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 2rem;
+	.content {
+		text-align: center;
+		h1 {
+			color: $white;
+			margin-bottom: 5rem;
+		}
+		.outpage {
+			display: unset;
+			margin-top: 1rem;
+			padding: 2rem;
+		}
+	}
+}

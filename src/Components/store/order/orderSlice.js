@@ -74,7 +74,7 @@ export const createUserOrder = async (userOrder, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.post(
-			"https://api-backend-nine.vercel.app/v1/userorder/create",
+			"http://localhost:5000/v1/userorder/create",
 			userOrder
 		);
 
@@ -92,10 +92,8 @@ export const createUserOrder = async (userOrder, dispatch, navigate) => {
 export const getAllUserOrder = async (dispatch) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get(
-			`https://api-backend-nine.vercel.app/v1/userorder`
-		);
-		dispatch(setUserOrder(res.data));
+		const res = await axios.get(`http://localhost:5000/v1/userorder`);
+		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {
 		dispatch(setStatus(STATUS.ERROR));
@@ -105,9 +103,7 @@ export const getAllUserOrder = async (dispatch) => {
 export const getUserOrdered = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get(
-			`https://api-backend-nine.vercel.app/${id}`
-		);
+		const res = await axios.get(`http://localhost:5000/v1/${id}`);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {

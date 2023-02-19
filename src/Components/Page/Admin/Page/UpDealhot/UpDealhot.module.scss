@@ -1,9 +1,72 @@
 @use "../../../../../scss/" as *;
 
-.formupdealhot {
-	div {
-		input {
-			border: 1px solid #ccc;
+.container {
+	width: 100%;
+	height: 100vh;
+	background-color: rgb(50 100 150 / 49%);
+	position: fixed;
+	top: 0;
+	left: 0;
+	@include flex(center, center);
+	flex-direction: column;
+	z-index: 999;
+
+	.formupdealhot {
+		@include flex(unset, center);
+		position: relative;
+		flex-direction: column;
+		background-color: #fff;
+		padding: 2rem;
+		width: 50%;
+		animation: slide-down 300ms ease-out;
+		div {
+			input {
+				border: 1px solid #ccc;
+			}
 		}
+		.item {
+			@include flex(unset, unset);
+			flex-direction: column;
+			margin-top: 1.2rem;
+
+			label {
+				font-size: 2rem;
+			}
+			input {
+				height: 3rem;
+				padding: 0 1rem;
+			}
+		}
+		.add {
+			align-items: center;
+			align-self: end;
+			margin-top: 1.4rem;
+		}
+		.close {
+			position: absolute;
+			right: 0;
+			top: 0;
+			background: #ccc;
+			width: 3rem;
+			height: 3rem;
+			text-align: center;
+			line-height: 3rem;
+			cursor: pointer;
+		}
+	}
+
+	.image_empty {
+		width: 40%;
+	}
+}
+
+@keyframes slide-down {
+	from {
+		opacity: 0;
+		transform: translateY(-5rem);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }

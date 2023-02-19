@@ -1,10 +1,16 @@
-.category {
-	width: 1240px;
+@use "../../../../scss/" as *;
 
-	margin-right: auto;
-	margin-left: auto;
-	padding: 15px;
-	position: relative;
-	font-size: 1.5rem;
-	text-align: center;
+.category {
+	@include flex(center, center);
+	color: #000;
+	padding: 1rem 20rem;
+	@include tablet {
+		padding: 1rem 3rem;
+	}
+	@include mobile {
+		padding: 1rem 1rem;
+	}
+	@include tablet {
+		display: none;
+	}
 }

@@ -12,6 +12,7 @@ import {
 	userOrdered,
 	getUserOrdered,
 	deleteUserOrdered,
+	getAllUserOrder,
 } from "~/Components/store/order/orderSlice";
 
 import PayItem from "./PayItem/PayItem";
@@ -44,7 +45,7 @@ const Pay = () => {
 	useEffect(() => {
 		setLoading(true);
 
-		// getAllUserOrder(dispatch);
+		getAllUserOrder(dispatch);
 		if (user?.username) {
 			getUserOrdered(dispatch, user?._id);
 			setLoading(false);
@@ -69,50 +70,47 @@ const Pay = () => {
 						<h2 className={cx("pay__title")}>
 							Thông Tin Đơn Hàng Đã Đặt
 						</h2>
-						<div className={cx("pay__detail")}>
-							<h3>Họ Tên</h3>
-							<h3>Tên Sản Phẩm</h3>
-							<h3>Số Lượng</h3>
-							<h3>Xóa Sản Phẩm</h3>
-							<h3>Giá Từng Sản Phẩm</h3>
-							<h3>Thành Tiền</h3>
-							<h3>Thời Gian</h3>
-						</div>
 
+						<div className={cx("pay__detail")}>
+							<h4>Họ Tên</h4>
+							<h4>Tên Sản Phẩm</h4>
+							<h4>Số Lượng</h4>
+							<h4>Giá Từng Sản Phẩm</h4>
+							<h4>Thành Tiền</h4>
+							<h4>Thời Gian</h4>
+							<h4>Chức Năng</h4>
+						</div>
 						{/* <div className={cx("pay__name")}>
 								<span>Tổng : {`${total?.toFixed(3)}`}</span>
 							</div> */}
-						<div style={{ textAlign: "center" }}>
-							{usersOrder?.orders &&
-								usersOrder?.orders?.length > 0 &&
-								usersOrder?.orders?.map((cartOrder) => {
-									return (
-										<PayItem
-											cartOrder={cartOrder}
-											key={cartOrder?._id}
-											deleteOrder={() =>
-												deleteOrderHandler(
-													cartOrder?._id
-												)
-											}
-										/>
-									);
-								})}
 
-							{usersOrder?.orders?.length === 0 && (
-								<div
-									style={{
-										textAlign: "center",
-										marginTop: "24px",
-									}}
-								>
-									<img
-										src="https://www.pngfind.com/pngs/m/272-2727925_continue-shopping-empty-cart-png-transparent-png.png"
-										alt="payempty"
+						{usersOrder &&
+							usersOrder?.length > 0 &&
+							usersOrder?.map((cartOrder) => {
+								return (
+									<PayItem
+										cartOrder={cartOrder}
+										key={cartOrder?._id}
+										deleteOrder={() =>
+											deleteOrderHandler(cartOrder?._id)
+										}
 									/>
-								</div>
-							)}
-						</div>
+								);
+							})}
+
+						{usersOrder?.length === 0 && (
+							<div
+								style={{
+									textAlign: "center",
+									marginTop: "24px",
+								}}
+							>
+								<img
+									src="https://www.pngfind.com/pngs/m/272-2727925_continue-shopping-empty-cart-png-transparent-png.png"
+									alt="payempty"
+								/>
+							</div>
+						)}
 
 						<div className={cx("pay__actions")}>
 							<Button

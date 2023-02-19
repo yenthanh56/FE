@@ -1,16 +1,29 @@
 @use "../../../../scss/" as *;
 
 .advertisement {
+	padding: 0 20rem;
+	@include tablet {
+		padding: 0 3rem;
+		flex-direction: column;
+	}
+	@include mobile {
+		padding: 0 1rem;
+	}
 	@include flex(center, space-between);
-	margin-top: 14px;
+	margin-top: 1.4rem;
 	&__item {
-		height: 160px;
 		img {
 			border-radius: 4px;
 			height: 100%;
 			&:hover {
 				opacity: 0.6;
 				cursor: pointer;
+			}
+		}
+		@include tablet {
+			&:nth-child(1),
+			&:nth-child(3) {
+				display: none;
 			}
 		}
 	}

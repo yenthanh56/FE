@@ -36,9 +36,7 @@ export default todayForYouSlice.reducer;
 export const getAllForYou = async (dispatch, type) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get(
-			`https://api-backend-nine.vercel.app/v1/${type}`
-		);
+		const res = await axios.get(`http://localhost:8080/v1/${type}`);
 		dispatch(setData(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {
@@ -49,9 +47,7 @@ export const getAllForYou = async (dispatch, type) => {
 export const getMyTodaySlug = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get(
-			`https://api-backend-nine.vercel.app/v1/foryou/${id}`
-		);
+		const res = await axios.get(`http://localhost:8080/v1/foryou/${id}`);
 		dispatch(setDetail(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {

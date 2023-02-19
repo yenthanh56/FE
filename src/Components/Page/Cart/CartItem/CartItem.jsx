@@ -4,21 +4,21 @@ import styles from "./CartItem.module.scss";
 import Button from "~/Components/UI/Button/Button";
 const cx = classNames.bind(styles);
 const CartItem = (props) => {
-	const { mainDeal, addItem, decreaseItem, clearItem } = props;
-	// const price = `${mainDeal?.price.toFixed(3)} đ`;
-	const amount = mainDeal?.cartQuantity;
+	const { product, increaseItem, decreaseItem, clearItem } = props;
+	// const price = `${product?.price.toFixed(3)} đ`;
+	const amount = product?.quantity;
 	const totalOneProduct = `${(
-		mainDeal?.cartQuantity * mainDeal?.price ||
-		mainDeal?.cartQuantity * mainDeal?.currentPrice
+		product?.quantity * product?.price ||
+		product?.quantity * product?.currentPrice
 	).toFixed(3)} đ`;
 
 	return (
 		<>
 			<li className={cx("cartitem")}>
 				<div className={cx("cartitem__title")}>
-					<img src={mainDeal?.image} alt={mainDeal?.title} />
+					<img src={product?.image} alt={product?.title} />
 					<h4 className={cx("cartitem__title__name")}>
-						{mainDeal?.title}
+						{product?.title}
 					</h4>
 				</div>
 
@@ -29,7 +29,7 @@ const CartItem = (props) => {
 				<div className={cx("cartitem__actions")}>
 					<Button onClick={decreaseItem}>-</Button>
 
-					<Button onClick={addItem}>+</Button>
+					<Button onClick={increaseItem}>+</Button>
 				</div>
 				<div className={cx("cartitem__detele")}>
 					<Button onClick={clearItem} small>

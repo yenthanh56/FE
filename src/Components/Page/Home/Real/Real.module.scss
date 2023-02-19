@@ -2,38 +2,71 @@
 
 .real {
 	background-color: rgb(255, 255, 255);
-	margin: 16px 0px 0px;
-	padding-bottom: 16px;
-
+	margin: 1.6rem 0px 0px;
+	padding-bottom: 1.6rem;
+	padding: 0 20rem;
+	@include tablet {
+		padding: 0 3rem;
+	}
+	@include mobile {
+		padding: 0 1rem;
+	}
 	&__title {
 		@include flex(center, space-between);
-		padding: 16px;
+		padding: 1.6rem 0;
 		&__left {
 			@include flex(center, center);
 			img {
-				width: 24px;
-				height: 24px;
-				margin-right: 4px;
+				width: 2.4rem;
+				height: 2.4rem;
+				margin-right: 0.4rem;
 				position: relative;
-				top: 2px;
+				top: 0.2rem;
+				@include mobile {
+					width: 1rem;
+					height: 1rem;
+					top: 0;
+				}
 			}
 			span:nth-child(2) {
 				font-size: 2.2rem;
+				@include tablet {
+					font-size: 1.5rem;
+				}
+				@include mobile {
+					font-size: 1rem;
+				}
 			}
 		}
 		&__right {
 			color: rgb(11, 116, 229);
+			@include tablet {
+				font-size: 1.5rem;
+			}
+			@include mobile {
+				font-size: 1rem;
+			}
 		}
 	}
 	&__slider {
 		&__item {
 			@include flex(center, space-evenly);
-			padding-bottom: 25px;
+			padding-bottom: 2.5rem;
+			gap: 1rem;
+			@include tablet {
+				display: block;
+			}
 			img {
 				border-radius: 8px;
-				width: 598px;
-				height: 201px;
 				object-fit: cover;
+				@include tablet {
+					width: 100%;
+				}
+			}
+		}
+		&__product {
+			@include tablet {
+				display: none;
 			}
 		}
 		&__trademark {
@@ -42,17 +75,27 @@
 			img {
 				border: 1px solid rgb(238, 238, 238);
 				border-radius: 8px;
-				width: 190px;
-				height: 284px;
 				object-fit: cover;
+				@include tablet {
+					width: 87%;
+				}
+				@include mobile {
+					width: 85%;
+				}
 			}
 			span {
 				color: rgb(26, 148, 255);
 				position: absolute;
-				bottom: 14px;
-				left: 0px;
-				right: 0px;
+				bottom: 1.4rem;
+				left: 0;
+				right: 0;
 				font-size: 1.4rem;
+				@include tablet {
+					display: none;
+				}
+				@include mobile {
+					display: none;
+				}
 			}
 		}
 	}

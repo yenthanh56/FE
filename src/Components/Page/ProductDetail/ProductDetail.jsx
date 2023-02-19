@@ -7,18 +7,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDealHotSlug } from "~/Components/store/DealHot/DealHotSlice";
 import { selectDetailDealHot } from "~/Components/store/DealHot/DealHotSlice";
 import Button from "~/Components/UI/Button/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "~/Components/store/cartSlice";
 
 const cx = className.bind(styles);
 const ProductDetail = () => {
 	const dispatch = useDispatch();
-
+	const navigate = useNavigate();
 	const { id } = useParams();
 	const product = useSelector(selectDetailDealHot);
+	const username = useSelector((state) => state.auth?.login?.data);
 
-	let total = useSelector((state) => state.cart.data?.cartTotalAmount);
-	total = `${total.toFixed(3)} đ`;
+	const [quantity, setQuantity] = useState(1);
+	console.log(id);
+	// let total = useSelector((state) => state.cart.data?.cartTotalAmount);
+	// total = `${total.toFixed(3)} đ`;
 	const priceCurrent = `${product?.price?.toFixed(3)} đ`;
 	const priceOld = `${product?.priceOld?.toFixed(3)} đ`;
 	const [loading, setLoading] = useState(true);
@@ -29,17 +32,36 @@ const ProductDetail = () => {
 		setLoading(false);
 	}, [dispatch, id]);
 
+	const decreeseQuantityBtn = (e) => {
+		console.log(typeof quantity);
+		e.preventDefault();
+		setQuantity((pre) => (pre === 1 ? 1 : pre - 1));
+	};
+
+	const increeseQuantityBtn = (e) => {
+		e.preventDefault();
+		setQuantity((pre) => pre + 1);
+	};
+
 	const addToCartHandler = (e) => {
 		e.preventDefault();
-		dispatch(
-			addToCart({
-				id: product?._id,
-				title: product?.title,
-				price: product?.price,
-				image: product?.image,
-			})
-		);
-		toast.success("Bạn đã Thêm vào giỏ hàng");
+		if (username?.username) {
+			dispatch(
+				addToCart({
+					id: product?._id,
+					title: product?.title,
+					price: product?.price,
+					image: product?.image,
+					quantity,
+				})
+			);
+			toast.success("Bạn đã Thêm vào giỏ hàng");
+			return;
+		} else {
+			toast.error("Bạn phải đăng nhập để thêm sản phẩm vào giỏ hàng");
+			navigate("/users/login");
+			return;
+		}
 	};
 
 	const formRenderItems = (
@@ -74,6 +96,19 @@ const ProductDetail = () => {
 						<span
 							className={cx("product__sell__percent")}
 						>{`${product?.sell} %`}</span>
+					</div>
+					<div className={cx("product__amount")}>
+						<Button onClick={(e) => decreeseQuantityBtn(e)}>
+							-
+						</Button>
+						<input
+							type="text"
+							value={Number(quantity)}
+							className={cx("product__inputamount")}
+						/>
+						<Button onClick={(e) => increeseQuantityBtn(e)}>
+							+
+						</Button>
 					</div>
 				</div>
 			</form>

@@ -1,127 +1,199 @@
-import React, { useState, useRef, useEffect } from "react";
 import className from "classnames/bind";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import styles from "./Login.module.scss";
-import Modal from "~/Components/UI/Modal/Modal";
+import Formlogin from "./Formlogin";
+import { InputsLogin } from "./InputsLogin";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { loginUser } from "~/Components/store/authSlice";
-
-import Google from "../../../img/google.png";
-import Facebook from "../../../img/facebook.png";
-import Github from "../../../img/github.png";
-
+import { faUser, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Button from "~/Components/UI/Button/Button";
+import {
+	faFacebook,
+	faGithub,
+	faGoogle,
+} from "@fortawesome/free-brands-svg-icons";
+import { toast } from "react-toastify";
+import usePassWordToogle from "../hooks/usePassWordToogle";
+import {
+	getAllUser,
+	loginGoogle,
+	loginUser,
+	setLogin,
+} from "~/Components/store/authSlice";
+import { useDispatch } from "react-redux";
+import { auth, provider, providerFb } from "~/Components/utils/firebase";
 
+import {
+	FacebookAuthProvider,
+	signInWithPopup,
+	updateProfile,
+} from "firebase/auth";
+import axios from "axios";
+import { createAccountGoogle } from "~/Components/API/googleApi";
+import { setLoginSuccess } from "~/Components/store/authSlice";
 const cx = className.bind(styles);
-
-const Login = (props) => {
-	const { isCloseModal } = props;
-	const usernameRef = useRef();
-	const passwordRef = useRef();
-	const dispatch = useDispatch();
+const Login = () => {
 	const navigate = useNavigate();
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const dispatch = useDispatch();
+	const [values, setValues] = useState({
+		username: "",
+		password: "",
+	});
 
-	const nameOnchangeHandler = (e) => {
-		setUsername(e.target.value);
-	};
-	const passwordOnchangeHandler = (e) => {
-		setPassword(e.target.value);
+	const onChangeValues = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
 	};
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
+
+		if (!values.username) {
+			toast.error("Bạn Chưa Nhập Tên Đăng Nhập");
+			// usernameRef.current.focus();
+			return;
+		}
+		if (!values.password) {
+			toast.error("Bạn Chưa Nhập Mật Khẩu");
+			// passwordRef.current.focus();
+			return;
+		}
+
 		const newData = {
-			username,
-			password,
+			username: values.username,
+			password: values.password,
 		};
 
-		if (!username) {
-			toast.error("Bạn Chưa Nhập Tên Đăng Nhập");
-			usernameRef.current.focus();
-			return;
-		}
-		if (!password) {
-			toast.error("Bạn Chưa Nhập Mật Khẩu");
-			passwordRef.current.focus();
-			return;
-		}
-
-		if (username && password) {
+		if (values.username && values.password) {
 			loginUser(newData, dispatch, navigate);
 		}
 	};
 
-	// login social media
-	const google = () => {
-		window.open("http://localhost:5000/auth/google", "_self");
+	const loginGoogleHandler = async () => {
+		signInWithPopup(auth, provider)
+			.then((result) => {
+				axios
+					.post("http://localhost:5000/v1/auth/google", {
+						username: result.user.displayName,
+						email: result.user.email,
+						avatar: result.user.photoURL,
+					})
+					.then((res) => {
+						dispatch(setLoginSuccess(res.data));
+						navigate("/");
+					});
+			})
+			.catch((err) => console.log(err));
 	};
+	// const newData = {
+	// 	username: result.user.displayName,
+	// 	email: result.user.email,
+	// 	avatar: result.user.photoURL,
+	// };
+	// loginGoogle(newData, dispatch, navigate);
 
-	const github = () => {
-		window.open("http://localhost:5000/auth/github", "_self");
+	const loginFacebookHandler = async () => {
+		try {
+			const result = await signInWithPopup(auth, providerFb);
+			const credantial = await FacebookAuthProvider.credentialFromResult(
+				result
+			);
+			console.log(result);
+			const token = credantial.accessToken;
+			let photoUrl =
+				result.user.photoURL + "?height=500&access_token=" + token;
+			await updateProfile(auth.currentUser, { photoURL: photoUrl });
+
+			const newData = {
+				username: result.user.displayName,
+				email: result.user.email,
+				avatar: result.user.photoURL,
+			};
+			dispatch(setLoginSuccess(newData));
+			navigate("/");
+		} catch (error) {
+			console.log(error);
+		}
+		console.log(123);
 	};
-
-	const facebook = () => {
-		window.open("http://localhost:5000/auth/facebook", "_self");
-	};
-
 	return (
-		<Modal isCloseModal={isCloseModal}>
-			<form className={cx("form")} onSubmit={onSubmitHandler}>
-				<div className={cx("form__control")}>
-					<label htmlFor="username">Tài khoản</label>
-					<input
-						type="text"
-						value={username}
-						onChange={nameOnchangeHandler}
-						ref={usernameRef}
-					/>
-				</div>
-				<div className={cx("form__control")}>
-					<label htmlFor="password">Mật Khẩu</label>
-					<input
-						type="password"
-						value={password}
-						onChange={passwordOnchangeHandler}
-						ref={passwordRef}
-					/>
-				</div>
-				<button>Đăng nhập</button>
-			</form>
-			<div className={cx("form__register")}>
-				<span>
-					Bạn chưa có tài khoản thì đăng ký tại đây!
-					<Link to="/users/register">
-						<span className={cx("form__register__title")}>
-							Đăng ký tài khoản
+		<div className={cx("login")} onClick={() => navigate("/")}>
+			<>
+				<form
+					className={cx("form")}
+					onSubmit={onSubmitHandler}
+					onClick={(e) => e.stopPropagation()}
+				>
+					<div className={cx("form__title")}>
+						<span>Đăng Nhập</span>
+						<FontAwesomeIcon
+							icon={faUser}
+							className={cx("form__title__icon")}
+						/>
+					</div>
+					<Button className={cx("form__close")} to="/">
+						<FontAwesomeIcon
+							icon={faXmark}
+							className={cx("form__close__icon")}
+						/>
+					</Button>
+					{InputsLogin.map((input) => (
+						<Formlogin
+							key={input.id}
+							{...input}
+							value={values[input.name]}
+							onChange={onChangeValues}
+						/>
+					))}
+					<Button large>Đăng nhập</Button>
+					<div className={cx("form__register")}>
+						<span>
+							Đăng ký tài khoản tại
+							<Link to="/users/register">
+								<span className={cx("form__register__title")}>
+									đây!
+								</span>
+							</Link>
 						</span>
-					</Link>
-				</span>
-			</div>
-			<div>
-				Login Social Media
-				<div className="loginButton google" onClick={google}>
-					<img src={Google} alt="" className="icon" />
-					Google
-				</div>
-				<div className="loginButton facebook" onClick={facebook}>
-					<img src={Facebook} alt="" className="icon" />
-					Facebook
-				</div>
-				<div className="loginButton github" onClick={github}>
-					<img src={Github} alt="" className="icon" />
-					Github
-				</div>
-			</div>
-			<Button className={cx("form__close")} to="/" onClick={isCloseModal}>
-				<FontAwesomeIcon icon={faXmark} />
-			</Button>
-		</Modal>
+					</div>
+
+					<div className={cx("form__social")}>
+						<span
+							className={cx("form__social__fb")}
+							onClick={loginFacebookHandler}
+						>
+							<FontAwesomeIcon icon={faFacebook} />
+						</span>
+						<span className={cx("form__social__github")}>
+							<FontAwesomeIcon icon={faGithub} />
+						</span>
+						<span
+							className={cx("form__social__google")}
+							onClick={loginGoogleHandler}
+						>
+							<FontAwesomeIcon icon={faGoogle} />
+						</span>
+					</div>
+				</form>
+			</>
+		</div>
 	);
 };
 
 export default Login;
+{
+	/* <div>
+	Login Social Media
+	<div className="loginButton google" onClick={google}>
+		<img src={google} alt="" className="icon" />
+		Google
+	</div>
+	<div className="loginButton facebook" onClick={facebook}>
+		<img src={facebook} alt="" className="icon" />
+		Facebook
+	</div>
+	<div className="loginButton github" onClick={github}>
+		<img src={github} alt="" className="icon" />
+		Github
+	</div>
+</div> */
+}

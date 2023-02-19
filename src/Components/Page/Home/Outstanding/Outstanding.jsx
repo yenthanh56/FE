@@ -8,7 +8,7 @@ const cx = className.bind(styles);
 const Outstanding = () => {
 	return (
 		<div className={cx("outstanding")}>
-			<p className={cx("outstanding__title")}>Danh Mục Nổi Bật</p>
+			{/* <p className={cx("outstanding__title")}>Danh Mục Nổi Bật</p> */}
 			<div className={cx("outstanding__group")}>
 				{productCategory.map((item, index) => (
 					<div key={index}>

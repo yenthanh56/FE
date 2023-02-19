@@ -31,34 +31,35 @@ const PayItem = ({ cartOrder, ...props }) => {
 	};
 
 	return (
-		<>
-			<li className={cx("payitem")}>
-				<div>{username?.toUpperCase()}</div>
-				<div className={cx("payitem__title")}>
-					{titleProduct.map((item, index) => (
-						<h4 key={index}>{item}</h4>
-					))}
-				</div>
+		<div className={cx("payitem")}>
+			<div>{username?.toUpperCase()}</div>
+			<div className={cx("payitem__title")}>
+				{titleProduct.map((item, index) => (
+					<h4 key={index}>{item}</h4>
+				))}
+			</div>
 
-				<div className={cx("payitem__amount")}>
-					{amount.map((item, index) => (
-						<p key={index}>{item}</p>
-					))}
-				</div>
+			<div className={cx("payitem__amount")}>
+				{amount.map((item, index) => (
+					<p key={index}>{item}</p>
+				))}
+			</div>
 
+			<div className={cx("payitem__priceitem")}>
+				{priceItem.map((item, index) => (
+					<div key={index}>{item}</div>
+				))}
+			</div>
+			<div className={cx("payitem__pricetotal")}>{priceTotal}</div>
+			<div className={cx("payitem__time")}>
+				{moment(cartOrder?.createdAt).format("LLLL")}
+			</div>
+			<div>
 				<Button small onClick={handleDelete}>
 					Hủy Đơn Hàng
 				</Button>
-				<div className={cx("payitem__priceitem")}>
-					{priceItem.map((item, index) => (
-						<div key={index}>{item}</div>
-					))}
-				</div>
-				<div className={cx("payitem__pricetotal")}>{priceTotal}</div>
-				<div className={cx("payitem__time")}>
-					{moment(cartOrder?.createdAt).format("LLLL")}
-				</div>
-			</li>
+			</div>
+
 			{/* <div>
 				<h2>Thông Tin Khách Hàng</h2>
 				<div className={cx("payitem__address")}>
@@ -85,7 +86,7 @@ const PayItem = ({ cartOrder, ...props }) => {
 					<p>{idUserOrdered}</p>
 				</div>
 			</div> */}
-		</>
+		</div>
 	);
 };
 

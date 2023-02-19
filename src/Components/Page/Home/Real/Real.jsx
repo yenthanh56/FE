@@ -33,7 +33,6 @@ const Real = () => {
 					grabCursor={true}
 					// autoplay={{ delay: 2000 }}
 					modules={[Navigation, Pagination, Autoplay]}
-					spaceBetween={10}
 					slidesPerView={1}
 					navigation
 					pagination={{ clickable: true }}
@@ -46,7 +45,11 @@ const Real = () => {
 									<img src={item.image0} alt="imageSlider0" />
 								</Link>
 								<Link to={item.path1}>
-									<img src={item.image1} alt="imageSlider0" />
+									<img
+										src={item.image1}
+										alt="imageSlider0"
+										className={cx("real__slider__product")}
+									/>
 								</Link>
 							</div>
 						</SwiperSlide>
@@ -59,7 +62,7 @@ const Real = () => {
 					autoplay={{ delay: 2000 }}
 					modules={[Navigation, Pagination, Autoplay]}
 					spaceBetween={-14}
-					slidesPerView={6}
+					slidesPerView={5}
 					className={cx("real__slider")}
 				>
 					{buyGiveGift.map((item, index) => (

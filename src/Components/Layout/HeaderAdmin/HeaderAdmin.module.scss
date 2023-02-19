@@ -1,0 +1,20 @@
+@use "../../../scss/" as *;
+.headeradmin {
+	@include flex(center, space-around);
+	top: 0;
+	left: 0;
+	right: 0;
+	position: sticky;
+	z-index: 999;
+	background-color: #5d3891;
+	padding: 2rem;
+	.logo {
+		width: 14rem;
+		border-radius: 50%;
+	}
+	.right {
+		font-size: 5rem;
+		font-weight: bold;
+		color: #fff;
+	}
+}

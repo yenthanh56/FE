@@ -20,6 +20,7 @@ const Dealhot = () => {
 	const [minus, setMinus] = useState();
 	const [seconds, setSeconds] = useState();
 	const dataDealHot = useSelector(selectAllDealHot);
+
 	let interval;
 
 	const startTimer = () => {
@@ -58,10 +59,11 @@ const Dealhot = () => {
 	}, [dispatch]);
 
 	return (
-		<div className={cx("container", "dealhot")}>
+		<div className={cx("dealhot")}>
 			<img
 				src="https://salt.tikicdn.com/ts/brickv2og/e4/0f/f3/ed1b12221c289369e26ce3bee2b93421.png"
 				alt="dealBg"
+				className={cx("dealhot__image")}
 			/>
 			<div className={cx("deal__day")}>
 				<div className={cx("deal__day__header")}>
@@ -104,37 +106,47 @@ const Dealhot = () => {
 				</div>
 			</div>
 			<div className={cx("deal__day__percent")}>
-				{dataDealHot?.map((item) => (
-					<div className={cx("deal__hot")} key={item?._id}>
-						<div className={cx("deal__day__percent__image")}>
-							<img
-								src={item?.image}
-								alt="image_sale"
-								width="124px"
-								height="124px"
-							/>
-							<div className={cx("deal__day__percent__discount")}>
-								<span>{item?.price.toFixed(3)}đ</span>
-								<span>{item?.percent}</span>
-							</div>
-							<div className={cx("deal__day__percent__quantity")}>
+				{dataDealHot &&
+					dataDealHot?.length > 0 &&
+					dataDealHot?.map((item) => (
+						<div className={cx("deal__hot")} key={item?._id}>
+							<div className={cx("deal__day__percent__image")}>
+								<img
+									src={item?.image}
+									alt="image_sale"
+									width="124px"
+									height="124px"
+								/>
 								<div
 									className={cx(
-										"deal__day__percent__quantity__progress"
+										"deal__day__percent__discount"
 									)}
-									style={{
-										width: `${item?.sell}%`,
-									}}
-								></div>
-								<span>{item?.titleSell}</span>
-								<img src={item?.dealhot} alt="dealhot" />
+								>
+									<span>{item?.price.toFixed(3)}đ</span>
+									<span>{item?.percent}</span>
+								</div>
+								<div
+									className={cx(
+										"deal__day__percent__quantity"
+									)}
+								>
+									<div
+										className={cx(
+											"deal__day__percent__quantity__progress"
+										)}
+										style={{
+											width: `${item?.sell}%`,
+										}}
+									></div>
+									<span>{item?.titleSell}</span>
+									<img src={item?.dealhot} alt="dealhot" />
+								</div>
 							</div>
+							<Button large to={`/productdetail/${item?._id}`}>
+								Xem Sản Phẩm
+							</Button>
 						</div>
-						<Button large to={`/productdetail/${item?._id}`}>
-							Xem Sản Phẩm
-						</Button>
-					</div>
-				))}
+					))}
 			</div>
 		</div>
 	);

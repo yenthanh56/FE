@@ -36,6 +36,9 @@ import CancelOrder from "../Page/CancelOrder/CancelOrder";
 import Admin from "../Page/Admin/Admin";
 import UpDealhot from "../Page/Admin/Page/UpDealhot/UpDealhot";
 import UpForYou from "../Page/Admin/Page/UpForYou/UpForYou";
+import ListDealHot from "../Page/Admin/Page/UpDealhot/ListDealHot";
+import EditDealhot from "../Page/Admin/Page/UpDealhot/EditDealHot";
+import ErrorPage from "../Page/Admin/Page/ErrorPage";
 
 export const publicRouters = [
 	{ path: "/", component: Home },
@@ -78,7 +81,26 @@ export const publicRouters = [
 	{ path: "/ordered", component: UserOrdered, layout: HeaderOnly },
 
 	// admin
-	{ path: "/admin/thanhngo", component: Admin, layout: null },
-	{ path: "/admin/thanhngo/updealhot", component: UpDealhot, layout: null },
+	{
+		path: "/admin/thanhngo",
+		component: Admin,
+		check: ErrorPage,
+		// error: ErrorPage,
+		layout: HeaderOnly,
+	},
+	// { path: "/admin/thanhngo", component: Login, layout: HeaderOnly },
+
+	{
+		path: "/admin/thanhngo/listdealhot",
+		check: ErrorPage,
+		component: ListDealHot,
+		layout: HeaderOnly,
+	},
+	{
+		path: "/admin/thanhngo/listdealhot/:id",
+		component: EditDealhot,
+		layout: HeaderOnly,
+	},
+	// { path: "/admin/thanhngo/updealhot", component: UpDealhot, layout: null },
 	{ path: "/admin/thanhngo/upforyou", component: UpForYou, layout: null },
 ];

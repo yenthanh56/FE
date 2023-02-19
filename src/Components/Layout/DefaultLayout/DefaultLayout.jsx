@@ -7,16 +7,16 @@ import Footer from "../Components/Footer/Footer";
 const cx = className.bind(styles);
 const DefaultLayout = ({ children, user }) => {
 	return (
-		<div>
+		<>
 			<Header user={user} />
-			<div className={cx("container")}>
-				<div className={cx("main")}>
-					{/* <Sidebar /> */}
-					<main className={cx("content")}>{children}</main>
-				</div>
+
+			<div className={cx("main")}>
+				{/* <Sidebar /> */}
+				<main className={cx("content")}>{children}</main>
 			</div>
+
 			<Footer />
-		</div>
+		</>
 	);
 };
 

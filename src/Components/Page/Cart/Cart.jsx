@@ -15,10 +15,10 @@ import Button from "~/Components/UI/Button/Button";
 
 import {
 	addToCart,
+	increaseCart,
 	removeCart,
 	decreaseCart,
 	selectAllCart,
-	getTotals,
 } from "~/Components/store/cartSlice";
 
 const cx = className.bind(styles);
@@ -33,8 +33,18 @@ const Cart = (props) => {
 	const phoneRef = useRef();
 
 	const username = useSelector((state) => state.auth?.login?.data);
-	const cart = useSelector(selectAllCart);
-	const total = useSelector((state) => state.cart.data?.cartTotalAmount);
+	const products = useSelector(selectAllCart);
+	// const total = useSelector((state) => state.cart.data?.cartTotalAmount);
+
+	const totalPrice = () => {
+		let total = 0;
+		products.forEach((item) => {
+			total +=
+				item?.quantity * item?.price ||
+				item?.quantity * item?.currentPrice;
+		});
+		return total.toFixed(3);
+	};
 
 	const paymentBy = [
 		{
@@ -87,32 +97,40 @@ const Cart = (props) => {
 	const onChangeNumberCreditCard = (e) => {
 		setNumberCreditCart(e.target.value);
 	};
-	const addItemHandler = (mainDeal) => {
-		dispatch(addToCart({ ...mainDeal }));
+	const addItemHandler = (product) => {
+		dispatch(addToCart({ ...product }));
 		toast.success("Bạn đã thêm số lượng sản phẩm");
 		return;
 	};
-	const decreaseItemHandler = (id) => {
-		if (id?.cartQuantity === 1) {
-			toast.success("Bạn đã xóa sản phẩm");
-			dispatch(removeCart(id));
+	const decreaseItemHandler = (product) => {
+		if (product.quantity === 1) {
+			toast.error("Bạn đã xóa sản phẩm");
+			dispatch(removeCart(product));
 			return;
 		}
-		dispatch(decreaseCart(id));
+		dispatch(decreaseCart(product));
 		toast.info("Bạn đã giảm số lượng sản phẩm");
 		return;
 	};
-	const removeItemHandler = (id) => {
+	const increeseItemHandler = (product) => {
+		if (product) {
+			dispatch(increaseCart(product));
+			toast.info("Bạn	tăng số lượng sản phẩm");
+			return;
+		}
+	};
+
+	const removeItemHandler = (product) => {
 		if (window.confirm("Bạn có chắc xóa sản phẩm này!!!")) {
-			dispatch(removeCart(id));
+			dispatch(removeCart(product));
 			toast.success("Bạn đã xóa sản phẩm");
 			return;
 		}
 	};
 
-	useEffect(() => {
-		dispatch(getTotals());
-	}, [cart, dispatch, checked]);
+	// useEffect(() => {
+	// 	dispatch(getTotals());
+	// }, [products, dispatch, checked]);
 
 	const onChangePaymentBy = (name) => {
 		setChecked(name);
@@ -135,16 +153,16 @@ const Cart = (props) => {
 			district: district,
 			ward: ward,
 			phone: +("+" + phone),
-			titleProduct: cart?.map((item) => item?.title),
-			amount: cart?.map((item) => item?.cartQuantity),
+			titleProduct: products?.map((item) => item?.title),
+			amount: products?.map((item) => item?.quantity),
 
-			priceItem: cart?.map(
+			priceItem: products?.map(
 				(item) =>
-					`${(item?.cartQuantity * item?.price).toFixed(3)} đ` ||
-					`${(item?.cartQuantity * item?.currentPrice).toFixed(3)} đ`
+					`${(item?.quantity * item?.price).toFixed(3)} đ` ||
+					`${(item?.quantity * item?.currentPrice).toFixed(3)} đ`
 			),
-			priceTotal: `${total?.toFixed(3)} đ`,
-			image: cart?.map((item) => item?.image),
+			priceTotal: totalPrice(),
+			image: products?.map((item) => item?.image),
 			paymentBy: checked,
 			userorder: username?._id,
 		};
@@ -210,13 +228,14 @@ const Cart = (props) => {
 		toast.success("Bạn Đã Đặt Hàng Thành Công!");
 	};
 
-	const cartList = cart?.map((mainDeal, index) => (
+	const cartList = products?.map((product, index) => (
 		<CartItem
-			mainDeal={mainDeal}
+			product={product}
 			key={index}
-			addItem={() => addItemHandler(mainDeal)}
-			decreaseItem={() => decreaseItemHandler(mainDeal)}
-			clearItem={() => removeItemHandler(mainDeal)}
+			addItem={() => addItemHandler(product)}
+			decreaseItem={() => decreaseItemHandler(product)}
+			increaseItem={() => increeseItemHandler(product)}
+			clearItem={() => removeItemHandler(product)}
 		/>
 	));
 	// ///////////////////////////////
@@ -245,7 +264,7 @@ const Cart = (props) => {
 			<div className={cx("cart")}>
 				{/* {!!total && <span>{username?.username}</span>} */}
 				<div className={cx("cart__list")}>
-					{!!total && (
+					{!!totalPrice() && products.length > 0 && (
 						<>
 							<h3 className={cx("cart__list__mycart")}>
 								Thông Tin Giỏ Hàng Của Bạn
@@ -263,7 +282,7 @@ const Cart = (props) => {
 				</div>
 			</div>
 			{/* when cart empty */}
-			{total === 0 && (
+			{products.length <= 0 && (
 				<div className={cx("cart__empty")}>
 					<h1>Giỏ Hàng Không Có Sản Phẩm</h1>
 					<img
@@ -279,15 +298,12 @@ const Cart = (props) => {
 			)}
 
 			{/* address  */}
-			{!!total && (
+			{!!totalPrice() && products.length > 0 && (
 				<div className={cx("cart__userinformation")}>
 					<h3>Vui Lòng Nhập Thông Tin</h3>
 					<div className={cx("cart__userinformation__username")}>
 						<label>Tên Khách Hàng:</label>
-						<span>
-							{username?.username.charAt(0).toUpperCase() +
-								username?.username.slice(1)}
-						</span>
+						<span>{username?.username.toUpperCase()}</span>
 					</div>
 					<div className={cx("cart__userinformation__address")}>
 						<div
@@ -362,7 +378,7 @@ const Cart = (props) => {
 
 			{/* method payment */}
 			<div className={cx("payment")}>
-				{!!total && (
+				{!!totalPrice() && products.length > 0 && (
 					<>
 						<h3>Chọn Phương Thức Thanh Toán</h3>
 						<div className={cx("pay__Paymentby")}>
@@ -472,13 +488,13 @@ const Cart = (props) => {
 
 			{/* Button order */}
 			<div className={cx("cart__total")}>
-				{!!total && cart && cart?.length > 0 ? (
+				{!!totalPrice() && products?.length > 0 ? (
 					<>
 						<Button primary onClick={onSubmitPayHandler}>
 							Nhấn Để Đặt Hàng
 						</Button>
 						<div className={cx("cart__total__Link")}>
-							Thanh Toán : {`${total.toFixed(3)} đ`}
+							Thanh Toán : {`${totalPrice()}đ`}
 						</div>
 					</>
 				) : null}

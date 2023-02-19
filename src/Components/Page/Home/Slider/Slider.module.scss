@@ -3,10 +3,18 @@
 .slider {
 	@include flex(center, space-between);
 	border-radius: 4px;
-	margin-top: 12px;
+	margin-top: 1.2rem;
+	padding: 0 20rem;
+	gap: 1rem;
+	@include tablet {
+		padding: 0 3rem;
+	}
+	@include mobile {
+		padding: 0 1rem;
+	}
 	&__top {
 		flex: 1;
-		height: 274px;
+		max-height: 27rem;
 		border-radius: 4px;
 
 		img {
@@ -18,11 +26,17 @@
 	&__rigth {
 		display: flex;
 		flex-wrap: wrap;
-		width: 30%;
-		height: 274px;
+		height: 27rem;
 		background: rgb(148, 191, 255);
 		border-radius: 4px;
 		overflow: hidden;
-		margin-left: 8px;
+
+		&__dealhot {
+			width: 100%;
+			object-fit: cover;
+		}
+		@include tablet {
+			display: none;
+		}
 	}
 }

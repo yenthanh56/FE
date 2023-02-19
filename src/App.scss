@@ -15,7 +15,7 @@ html {
 		font-size: 1.2rem;
 	}
 	@include mobile {
-		font-size: 1.4rem;
+		font-size: 1.3rem;
 	}
 }
 body {
@@ -42,6 +42,8 @@ a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	z-index: 9999;
+	position: relative;
 }
 
 button,
@@ -57,7 +59,7 @@ li {
 	list-style: none;
 }
 img {
-	max-width: 100%;
+	// max-width: 100%;
 }
 iframe {
 	border: 0;
@@ -65,19 +67,19 @@ iframe {
 #webpack-dev-server-client-overlay {
 	display: none;
 }
-.container {
-	width: 1270px;
-	padding-left: 15px;
-	padding-right: 15px;
-	margin-right: auto;
-	margin-left: auto;
-	@include tablet {
-		padding: 0 2rem;
-	}
-	@include mobile {
-		padding: 0 1rem;
-	}
-}
+// .container {
+// 	width: 1270px;
+// 	padding-left: 15px;
+// 	padding-right: 15px;
+// 	margin-right: auto;
+// 	margin-left: auto;
+// 	@include tablet {
+// 		padding: 0 2rem;
+// 	}
+// 	@include mobile {
+// 		padding: 0 1rem;
+// 	}
+// }
 
 @each $color, $val in $colors {
 	.color-#{$color} {

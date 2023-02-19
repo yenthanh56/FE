@@ -1,38 +1,72 @@
 @use "../../../scss/" as *;
 .dealhot {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
 	position: relative;
-	width: 1270px;
-	padding-left: 15px;
-	padding-right: 15px;
-	margin-right: auto;
-	margin-left: auto;
+	padding: 0 20rem;
+	margin-top: 1rem;
+	@include tablet {
+		padding: 0 3rem;
+	}
+	@include mobile {
+		padding: 0 1rem;
+	}
+	&__image {
+		@include tablet {
+			min-height: 100px;
+		}
+		@include mobile {
+			display: 80px;
+		}
+	}
 }
 .deal {
 	position: relative;
-
 	@include flex(flex-start, center);
 
 	height: 274px;
 	&__day {
+		color: #fff;
 		position: absolute;
-		top: 0;
 		left: 50%;
 		transform: translateX(-50%);
-		color: #fff;
+
+		@include tablet {
+			top: -18px;
+		}
+		@include mobile {
+			top: 8px;
+		}
 		&__header {
 			@include flex(center, center);
 			padding: 16px 16px 8px;
 		}
 		&__left {
 			@include flex(center, space-between);
+			img {
+				@include tablet {
+					width: 80px;
+				}
+				@include mobile {
+					width: 75px;
+					&:nth-child(2) {
+						width: 25px;
+					}
+				}
+			}
 			&__countdown {
+				@include flex(center, center);
 				span {
 					background-color: rgb(255, 66, 78);
-					font-size: 1.5rem;
+					font-size: 2.5rem;
 					padding: 2px 4px;
 					border-radius: 4px;
 					margin: 0 4px;
 					color: #ffff;
+					@include mobile {
+						font-size: 1rem;
+					}
 				}
 			}
 		}
@@ -44,6 +78,13 @@
 			background-color: $white;
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
+			gap: 2rem;
+			@include tablet {
+				grid-template-columns: repeat(2, 1fr);
+			}
+			@include mobile {
+				grid-template-columns: repeat(1, 1fr);
+			}
 			&__seen {
 				z-index: 1;
 				&:hover {

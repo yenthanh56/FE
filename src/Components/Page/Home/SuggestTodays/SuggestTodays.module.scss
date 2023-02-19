@@ -1,6 +1,13 @@
 @use "../../../../scss/" as *;
 
 .suggesttodays {
+	padding: 0 20rem;
+	@include tablet {
+		padding: 0 3rem;
+	}
+	@include mobile {
+		padding: 0 1rem;
+	}
 	&__sticky {
 		position: sticky;
 		top: 0px;
@@ -12,29 +19,36 @@
 		padding: 10px 16px;
 		@include flex(center, unset);
 		background-color: $white;
-		margin: 16px 0 0 0;
+		margin: 1.6rem 0 0 0;
 		border-radius: 4px;
 	}
 	&__group {
 		display: grid;
 		grid-template-columns: repeat(8, 1fr);
 		grid-template-rows: repeat(1, 1fr);
-		gap: 4px;
+		gap: 10px;
+		margin: 0 0.5rem;
+		@include tablet {
+			grid-template-columns: repeat(4, 1fr);
+		}
+		@include mobile {
+			grid-template-columns: repeat(2, 1fr);
+		}
 		&__item {
 			@include flex(center, center);
 			flex-direction: column;
 			background-color: $white;
 			border-radius: 6px;
-			padding: 4px 8px;
-			margin: 4px 0;
+
+			margin: 0.4rem 0;
 			min-height: 78px;
 			img {
-				width: 48px;
+				width: 4rem;
 			}
 			span {
 				color: rgb(120, 120, 120);
 				font-size: 1.3rem;
-				margin-top: 4px;
+				margin-top: 0.4rem;
 			}
 			&.active {
 				border: 1px solid rgb(13, 92, 182);
@@ -54,8 +68,14 @@
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
 		grid-template-rows: repeat(1, 1fr);
-		padding-bottom: 12px;
+		padding-bottom: 1.2rem;
 
+		@include tablet {
+			grid-template-columns: repeat(3, 1fr);
+		}
+		@include mobile {
+			grid-template-columns: repeat(2, 1fr);
+		}
 		a:hover {
 			text-decoration: none;
 		}
@@ -83,7 +103,7 @@
 // btn add
 .btn__add {
 	position: absolute;
-	bottom: -30px;
+	bottom: -3rem;
 	left: 50%;
 	transform: translateX(-50%);
 }
@@ -97,7 +117,7 @@
 }
 
 .contentforyou__wrapper {
-	margin-top: 15px;
+	margin-top: 1.5rem;
 }
 
 .contentforyou__image {
@@ -122,38 +142,38 @@
 	background: rgb(242, 242, 242);
 	line-height: 12px;
 	display: inline-block;
-	padding: 0px 4px;
-	font-size: 9px;
-	margin: 0px 4px 0px 0px;
+	padding: 0 0.4rem;
+	font-size: 1rem;
+	margin: 0px 0.4rem 0px 0px;
 	position: relative;
-	top: -1px;
+	top: -0.1rem;
 	border-radius: 2px;
 }
 .contentforyou__title {
-	font-size: 13px;
-	margin: 0px 0px 4px;
+	font-size: 1.3rem;
+	margin: 0px 0px 0.4rem;
 	line-height: 20px;
 	word-break: break-word;
 	font-weight: initial;
-	max-width: 200px;
+	max-width: 20rem;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 .contentforyou__sold,
 .contentforyou__salepercent {
-	font-size: 13px;
+	font-size: 1.3rem;
 }
 .contentforyou__sold {
 	font-weight: 600;
 }
 .contentforyou__salepercent {
-	padding-left: 6px;
+	padding-left: 0.6rem;
 	color: rgb(255, 66, 78);
 }
 
 .contentforyou__cash {
-	font-size: 16px;
+	font-size: 1rem;
 	line-height: 24px;
 	font-weight: 500;
 }
@@ -165,9 +185,9 @@
 	margin-top: 8px;
 
 	img {
-		width: 60px;
-		height: 60px;
-		margin-right: 12px;
+		width: 6rem;
+		height: 6rem;
+		margin-right: 1.2rem;
 	}
 	p {
 		font-size: 1.3rem;

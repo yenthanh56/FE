@@ -1,0 +1,21 @@
+@use "../../../../../scss/" as *;
+
+.listdealhot {
+	@include flex(center, center);
+	flex-direction: column;
+	margin-top: 2rem;
+	position: relative;
+	.addproduct {
+		position: absolute;
+		top: 0;
+		left: 60px;
+	}
+	.title {
+		font-size: 3rem;
+		margin-top: 8rem;
+	}
+	.table {
+		border-spacing: 4rem;
+		text-align: justify;
+	}
+}

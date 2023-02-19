@@ -2,36 +2,50 @@
 
 .outstanding {
 	background-color: $white;
-	margin-top: 16px;
+	margin-top: 1.6rem;
 	border-radius: 3px;
-	padding-bottom: 10px;
+	padding-bottom: 1rem;
+	padding: 0 20rem;
+	@include tablet {
+		padding: 0 3rem;
+	}
+	@include mobile {
+		padding: 0 1rem;
+	}
+
 	&__title {
 		font-size: 20px;
 		line-height: 28px;
 		padding: 10px 16px;
+		font-weight: bold;
 		text-transform: capitalize;
 		font-weight: initial;
 	}
 	&__group {
+		margin-top: 1.8rem;
+		gap: 1.2rem 0.8rem;
 		display: grid;
 		grid-template-columns: repeat(10, 1fr);
-		grid-template-rows: repeat(1, 1fr);
-		background-color: #fff;
-		margin-top: 18px;
-		gap: 12px 8px;
-		text-align: center;
 		font-size: 1.3rem;
+		text-align: center;
+
+		@include tablet {
+			grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+		}
+		@include mobile {
+			grid-template-columns: repeat(1, 1fr);
+		}
 		&__item {
 			@include flex(center, center);
 			flex-direction: column;
 			img {
-				width: 60px;
-				height: 60px;
+				width: 4rem;
+				height: 4rem;
 				object-fit: cover;
 				border-radius: 20px;
 			}
 			span {
-				margin-top: 12px;
+				margin-top: 1.2rem;
 			}
 		}
 	}

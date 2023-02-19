@@ -1,21 +1,102 @@
 @use "../../../../scss/" as *;
-.form {
-	&__login {
+.register {
+	height: 100vh;
+	@include flex(center, center);
+	background-image: url("https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+	background-size: cover;
+	background-position: center;
+	cursor: pointer;
+	.form {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.75rem;
+		position: relative;
+		width: 20%;
+		background-color: #fff;
+		box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+		border-radius: 8px;
+		padding: 3rem;
+		animation: slide-down 300ms ease-out;
+		@include tablet {
+			width: 50%;
+			padding: 1.5rem;
+		}
+		@include mobile {
+			width: 70%;
+			padding: 1rem;
+		}
+
 		&__title {
-			color: #a10035;
+			@include flex(center, center);
+			flex-direction: column;
+
+			&__icon {
+				font-size: 3rem;
+				margin: 1rem 0;
+				@include tablet {
+					font-size: 2rem;
+				}
+				@include mobile {
+					font-size: 1rem;
+					margin: 0.5rem 0;
+				}
+			}
+			span {
+				font-size: 2rem;
+				@include tablet {
+					font-size: 1.2rem;
+				}
+				@include mobile {
+					font-size: 1rem;
+				}
+			}
+		}
+
+		&__login {
+			&__title {
+				color: #a10035;
+				margin-left: 0.25rem;
+			}
+			span {
+				@include tablet {
+					font-size: 1.2rem;
+				}
+				@include mobile {
+					font-size: 0.75rem;
+				}
+			}
+		}
+
+		&__close {
+			position: absolute;
+			top: -5px;
+			right: -10px;
+			font-size: 2rem;
+			border: none;
+			cursor: pointer;
+			@include tablet {
+				top: -14px;
+				right: -22px;
+			}
+			@include mobile {
+				font-size: 1.5rem;
+
+				top: -14px;
+				right: -30px;
+			}
 		}
 	}
-	&__close {
-		position: absolute;
-		top: 0;
-		right: 0;
-		font-size: 2rem;
-		width: 30px;
-		height: 30px;
-		background: #ccc;
-		line-height: 30px;
-		text-align: center;
-		border: none;
-		cursor: pointer;
+}
+
+@keyframes slide-down {
+	from {
+		opacity: 0;
+		transform: translateY(-5rem);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }

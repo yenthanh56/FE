@@ -20,24 +20,23 @@ const cx = className.bind(styles);
 const Home = () => {
 	return (
 		<div className={cx("home")}>
-			<div className={cx("container")}>
-				{/* slider-top */}
-				<Slider />
-				{/* deal */}
-				<Deal />
-				{/* advertisement  */}
-				<Advertisement />
-				{/* quicklink */}
-				<QuickLink />
-				{/* banner */}
-				<Banner />
-				{/* Real */}
-				<Real />
-				{/* Outstanding */}
-				<Outstanding />
-				{/* SuggestTodays */}
-				<SuggestTodays />
-			</div>
+			{/* slider-top done loading*/}
+			<Slider />
+
+			{/* deal * done loading/ */}
+			<Deal />
+			{/* advertisement  */}
+			<Advertisement />
+			{/* quicklink */}
+			<QuickLink />
+			{/* banner */}
+			<Banner />
+			{/* Real */}
+			<Real />
+			{/* Outstanding */}
+			<Outstanding />
+			{/* SuggestTodays */}
+			<SuggestTodays />
 		</div>
 	);
 };

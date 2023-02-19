@@ -1,0 +1,9 @@
+@use "../../../scss/" as *;
+
+.admin {
+	@include flex(center, center);
+	margin-top: 3rem;
+	.table {
+		border-spacing: 4rem;
+	}
+}

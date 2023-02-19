@@ -1,18 +1,26 @@
 @use "../../../scss/" as *;
 
 .pay {
+	padding: 0 20rem;
+	@include tablet {
+		padding: 0 3rem;
+	}
+	@include mobile {
+		padding: 0 1rem;
+	}
 	&__title {
 		text-align: center;
 	}
 	&__detail {
 		margin-top: 24px;
+
 		display: grid;
-		// grid-template-columns: repeat(7, 1fr);
-		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-		gap: 20px;
+		grid-template-columns: repeat(7, 1fr);
+		// grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 		grid-template-rows: repeat(1, 1fr);
-		font-size: 1.4rem;
-		text-align: center;
+		h4 {
+			font-size: 2rem;
+		}
 	}
 	&__Paymentby {
 		@include flex(center, space-around);

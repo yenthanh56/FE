@@ -4,45 +4,81 @@ import styles from "./Register.module.scss";
 
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import Modal from "~/Components/UI/Modal/Modal";
+import { faUser, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "~/Components/UI/Button/Button";
 
 import { registerUser } from "~/Components/store/authSlice";
+import Formlogin from "../Login/Formlogin";
 const cx = classNames.bind(styles);
 
 const Register = (props) => {
-	const { isCloseModal } = props;
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const usernameRef = useRef();
-	const emailRef = useRef();
-	const passwordRef = useRef();
-	const cf_passwordRef = useRef();
-	const initialState = {
+
+	const [values, setValues] = useState({
 		username: "",
 		email: "",
 		password: "",
 		cf_password: "",
-	};
-	const [userData, setUserData] = useState(initialState);
-	const { username, email, password, cf_password } = userData;
+	});
 
 	const onChangeInputHandler = (e) => {
 		const { name, value } = e.target;
-		setUserData({ ...userData, [name]: value });
+		setValues({ ...values, [name]: value });
 	};
+
+	const InputRegister = [
+		{
+			id: "1",
+			name: "username",
+			type: "text",
+			placeholder: "Tên Tài Khoản",
+			errorMessage:
+				"Tên tài khoản bắt buộc từ 3 đến 16 ký tự, không sử dụng ký tự đặc biệt",
+			label: "Tên Tài Khoản",
+			pattern: "^[A-Za-z0-9]{3,16}$",
+			required: true,
+		},
+		{
+			id: "2",
+			name: "email",
+			type: "email",
+			placeholder: "Địa Chỉ Email",
+			errorMessage: "Địa chỉ email không hợp lệ",
+			label: "Email",
+			pattern: "[a-z0-9]+@[a-z]+.[a-z]{2,3}",
+
+			required: true,
+		},
+		{
+			id: "3",
+			name: "password",
+			type: "password",
+			placeholder: "Mật Khẩu",
+			errorMessage:
+				"Mật Khẩu bắt buộc từ 8 đến 20 ký tự,ít nhất 1 chữ cái,1 số, 1 ký tự đặc biệt",
+			label: "Mật Khẩu",
+			pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+
+			required: true,
+		},
+		{
+			id: "4",
+			name: "confirmPassword",
+			type: "password",
+			placeholder: "Xác Nhận Mật Khẩu",
+			errorMessage: "Mật khẩu không trùng khớp",
+			label: "Xác Nhận Mật Khẩu",
+			pattern: values.password,
+			required: true,
+		},
+	];
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
-		const newData = {
-			username,
-			email,
-			password,
-			cf_password,
-		};
+		console.log(123);
 		// console.log({
 		// 	username: username,
 		// 	email: email,
@@ -50,84 +86,75 @@ const Register = (props) => {
 		// 	cf_password: cf_password,
 		// });
 
-		if (!username) {
-			usernameRef.current.focus();
-			return;
-		}
-		if (!email) {
-			emailRef.current.focus();
-			return;
-		}
-		if (!password) {
-			passwordRef.current.focus();
-			return;
-		}
-		if (!cf_password) {
-			cf_passwordRef.current.focus();
-			return;
-		}
+		// if (!username) {
+		// 	usernameRef.current.focus();
+		// 	return;
+		// }
+		// if (!email) {
+		// 	emailRef.current.focus();
+		// 	return;
+		// }
+		// if (!password) {
+		// 	passwordRef.current.focus();
+		// 	return;
+		// }
+		// if (!cf_password) {
+		// 	cf_passwordRef.current.focus();
+		// 	return;
+		// }
+		const newData = {
+			username: values.username,
+			email: values.email,
+			password: values.password,
+			cf_password: values.cf_password,
+		};
+
 		registerUser(newData, dispatch, navigate);
 	};
 
 	return (
-		<Modal>
-			<form className={cx("form")} onSubmit={onSubmitHandler}>
-				<div className={cx("form__control")}>
-					<label htmlFor="username">Tài khoản</label>
-					<input
-						type="text"
-						value={username}
-						name="username"
-						onChange={onChangeInputHandler}
-						ref={usernameRef}
+		<div className={cx("register")} onClick={() => navigate("/")}>
+			<form
+				className={cx("form")}
+				onSubmit={onSubmitHandler}
+				onClick={(e) => e.stopPropagation()}
+			>
+				<div className={cx("form__title")}>
+					<span>Đăng ký Tài Khoản</span>
+					<FontAwesomeIcon
+						icon={faUser}
+						className={cx("form__title__icon")}
 					/>
 				</div>
-				<div className={cx("form__control")}>
-					<label htmlFor="password">Email</label>
-					<input
-						type="text"
-						value={email}
-						name="email"
+				{InputRegister.map((input) => (
+					<Formlogin
+						key={input.id}
+						{...input}
+						value={values[input.name]}
 						onChange={onChangeInputHandler}
-						ref={emailRef}
 					/>
+				))}
+
+				<Button large>Đăng Ký</Button>
+				<div className={cx("form__login")}>
+					<span>
+						Đăng nhập tài khoản tại
+						<Link to="/users/login">
+							<span className={cx("form__login__title")}>
+								đây !
+							</span>
+						</Link>
+					</span>
 				</div>
-				<div className={cx("form__control")}>
-					<label htmlFor="password">Mật Khẩu</label>
-					<input
-						type="password"
-						value={password}
-						name="password"
-						onChange={onChangeInputHandler}
-						ref={passwordRef}
+
+				<Button className={cx("form__close")} to="/">
+					<FontAwesomeIcon
+						icon={faXmark}
+						className={cx("form__close__icon")}
 					/>
-				</div>
-				<div className={cx("form__control")}>
-					<label htmlFor="password">Xác Nhận Lại Mật Khẩu</label>
-					<input
-						type="password"
-						value={cf_password}
-						name="cf_password"
-						onChange={onChangeInputHandler}
-						ref={cf_passwordRef}
-					/>
-				</div>
-				<button>Đăng nhập</button>
+				</Button>
 			</form>
-			<div className={cx("form__login")}>
-				<span>
-					Nếu bạn đã có tài khoản thì hãy đăng nhập tại đây !
-					<Link to="/users/login">
-						<span className={cx("form__login__title")}>
-							Đăng nhập tài khoản
-						</span>
-					</Link>
-				</span>
-			</div>
-			<Button className={cx("form__close")} onClick={isCloseModal} to="/">
-				<FontAwesomeIcon icon={faXmark} />
-			</Button>
-		</Modal>
+		</div>
 	);
 };
 
