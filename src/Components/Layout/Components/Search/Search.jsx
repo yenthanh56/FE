@@ -10,15 +10,22 @@ import Tippy from "@tippyjs/react/headless";
 import Wrapper from "../Wrapper/Wrapper";
 import { fakeAPISearch } from "../faleApiSearch/faleApiSearch";
 import ProductItem from "../ProductItem/ProductItem";
+import Button from "~/Components/UI/Button/Button";
+import { useDebouced } from "~/Components/hooks/useDebouced";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectAllDealHot } from "~/Components/store/DealHot/DealHotSlice";
 const cx = className.bind(styles);
 
 const Search = () => {
+	// const dealhot = useSelector(selectAllDealHot);
+	// console.log(dealhot);
 	const searchInputRef = useRef();
-	const [searchResult, setSearchResult] = useState(fakeAPISearch);
-	const [searchShow, setSearchShow] = useState(true);
+	const [searchResult, setSearchResult] = useState([]);
+	const [searchShow, setSearchShow] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-	const [query, setQuery] = useState("");
+	const debouced = useDebouced(searchValue, 500);
 
 	const enteredSearchOnchangeHandler = (e) => {
 		setSearchValue(e.target.value);
@@ -36,11 +43,34 @@ const Search = () => {
 	const onHideResultSearchHandler = () => {
 		setSearchShow(false);
 	};
+	console.log(searchResult);
+
+	useEffect(() => {
+		const fetchApi = async () => {
+			if (!debouced.trim()) {
+				setSearchResult([]);
+				return;
+			}
+			try {
+				let res = await axios.get(
+					`http://localhost:5000/v1/dealhot/search?q=${encodeURIComponent(
+						debouced
+					)}`
+				);
+
+				setSearchResult(res.data);
+				setIsLoading(false);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchApi();
+	}, [debouced]);
 
 	return (
 		<Tippy
 			interactive
-			visible={searchShow && searchResult.length < 0}
+			visible={searchShow && searchResult.length > 0}
 			placement="bottom-start"
 			render={(attrs) => {
 				return (
@@ -51,18 +81,9 @@ const Search = () => {
 							</h4>
 							{searchResult &&
 								searchResult.length > 0 &&
-								searchResult
-									.filter((product) =>
-										product.name
-											.toLowerCase()
-											.includes(searchValue)
-									)
-									.map((data) => (
-										<ProductItem
-											data={data}
-											key={data.id}
-										/>
-									))}
+								searchResult.map((data) => (
+									<ProductItem data={data} key={data._id} setSearchShow={setSearchShow} />
+								))}
 						</Wrapper>
 					</div>
 				);
@@ -81,20 +102,20 @@ const Search = () => {
 				/>
 
 				{!!searchValue && (
-					<button
-						className={cx("clear")}
+					<Button
+						className={cx("search__clear")}
 						onClick={clearSearchValueHandler}
 					>
-						<FontAwesomeIcon icon={faCircleXmark} />
-					</button>
+						xóa
+					</Button>
 				)}
 
-				<button>
-					<i>
+				<Button small className={cx("search__btn")}>
+					<span className={cx("fyingGlass")}>
 						<FontAwesomeIcon icon={faMagnifyingGlass} />
-					</i>
+					</span>
 					<span>Tìm kiếm</span>
-				</button>
+				</Button>
 			</div>
 		</Tippy>
 	);

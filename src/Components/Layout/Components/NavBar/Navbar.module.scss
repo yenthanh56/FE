@@ -56,9 +56,9 @@
 		&__search {
 			@include flex(center, center);
 			flex: 1;
-			input:not(:placeholder-shown) ~ button {
-				color: rgba(22, 24, 35, 0.75);
-			}
+			// input:not(:placeholder-shown) ~ button {
+			// 	color: rgba(22, 24, 35, 0.75);
+			// }
 			// button {
 			// 	height: 100%;
 			// 	width: 120px;

@@ -4,7 +4,7 @@
 	@include flex(center, center);
 	flex: 1;
 	height: 40px;
-
+	position: relative;
 	input {
 		height: 100%;
 		flex: 1;
@@ -15,21 +15,35 @@
 		color: rgba(22, 24, 35, 0.75);
 	}
 
-	button {
+	// button {
+	// 	height: 100%;
+	// 	width: 120px;
+	// 	background-color: $btn-color-bg;
+	// 	color: $white;
+	// 	font-weight: 700;
+	// 	border: none;
+	// 	span {
+	// 		margin-left: 8px;
+	// 	}
+	// }
+	&__btn {
+		background-color: #95bdff;
 		height: 100%;
-		width: 120px;
-		background-color: $btn-color-bg;
-		color: $white;
-		font-weight: 700;
-		border: none;
-		span {
-			margin-left: 8px;
-		}
+		border-radius: 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		font-size: 1.5rem;
+		margin-left: auto;
+	}
+	&__clear {
+		background-color: #fff;
+		height: 100%;
 	}
 }
 
 .search__box {
-	width: 608px;
+	width: 765px;
 	background-color: $white;
 	color: $text-second-color;
 	border-radius: 8px;
