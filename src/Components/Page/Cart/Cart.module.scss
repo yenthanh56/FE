@@ -17,6 +17,12 @@
 			text-align: center;
 			margin-top: 28px;
 			font-size: 2.5rem;
+			@include tablet {
+				font-size: 2rem;
+			}
+			@include mobile {
+				font-size: 1.2rem;
+			}
 		}
 	}
 
@@ -44,6 +50,12 @@
 			margin-bottom: 50px;
 			text-align: center;
 			font-size: 2.5rem;
+			@include tablet {
+				font-size: 2rem;
+			}
+			@include mobile {
+				font-size: 1.2rem;
+			}
 		}
 
 		&__username {
@@ -51,24 +63,55 @@
 			label {
 				font-weight: 700;
 				font-size: 2rem;
+				@include tablet {
+					font-size: 2rem;
+				}
+				@include mobile {
+					font-size: 1.2rem;
+				}
 			}
 			span {
 				font-size: 2rem;
 				margin-left: 4px;
+				@include tablet {
+					font-size: 2rem;
+				}
+				@include mobile {
+					font-size: 1.2rem;
+				}
 			}
 		}
 		&__address {
 			width: 40%;
+			@include tablet {
+				width: auto;
+			}
+			@include mobile {
+				width: auto;
+			}
 			label {
 				min-width: 230px;
 				font-weight: 700;
 				font-size: 2rem;
+				@include tablet {
+					font-size: 2rem;
+				}
+				@include mobile {
+					font-size: 1.2rem;
+				}
 			}
 			input {
 				border: 1px solid #000;
 				padding: 0.5rem 0.75rem;
 				font-size: 1.8rem;
 				flex: 1;
+				width: 100%;
+				@include tablet {
+					font-size: 1.5rem;
+				}
+				@include mobile {
+					font-size: 1.2rem;
+				}
 			}
 			&__address,
 			&__city,
@@ -77,6 +120,14 @@
 			&__phone {
 				@include flex(center, space-between);
 				margin-bottom: 8px;
+				@include tablet {
+					flex-direction: column;
+					gap: 20px;
+				}
+				@include mobile {
+					flex-direction: column;
+					gap: 20px;
+				}
 			}
 		}
 	}
@@ -86,11 +137,26 @@
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-rows: repeat(1, 1fr);
+	@include tablet {
+		display: none;
+	}
+	@include mobile {
+		display: none;
+	}
 }
 
 .cart__empty {
 	@include flex(center, center);
 	flex-direction: column;
+	@include mobile {
+		margin-top: 1.4rem;
+		padding: 0 1rem;
+	}
+	h1 {
+		@include mobile {
+			font-size: 1.2rem;
+		}
+	}
 }
 .cart__imgempty {
 	margin: 30px 0;
@@ -99,9 +165,13 @@
 	padding: 0 20rem;
 	@include tablet {
 		padding: 0 3rem;
+		flex-direction: column;
+		gap: 20px;
 	}
 	@include mobile {
 		padding: 0 1rem;
+		flex-direction: column;
+		gap: 20px;
 	}
 	text-align: right;
 	display: flex;
@@ -116,31 +186,84 @@
 		border-radius: 4px;
 		margin-left: 6px;
 		user-select: none;
+		@include tablet {
+			font-size: 2rem;
+		}
+		@include mobile {
+			font-size: 1rem;
+		}
 	}
 }
 
 // payment
 .payment {
 	margin-top: 32px;
+	padding: 0 20rem;
+	@include tablet {
+		padding: 0 3rem;
+	}
+	@include mobile {
+		padding: 0 1rem;
+	}
 	h3 {
 		margin-top: 28px;
 		margin-bottom: 50px;
 		text-align: center;
 		font-size: 2.5rem;
+		@include tablet {
+			font-size: 2rem;
+		}
+		@include mobile {
+			font-size: 1rem;
+		}
 	}
 }
 
 .pay__Paymentby {
 	@include flex(center, space-around);
+	padding: 0 20rem;
+	@include tablet {
+		padding: 0 3rem;
+		font-size: 2rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+	}
+	@include mobile {
+		padding: 0 1rem;
+		font-size: 1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+	}
 }
 
 .pay__child {
 	display: flex;
 	flex-direction: column;
 	position: relative;
+	gap: 30px;
+	@include tablet {
+		align-items: center;
+	}
+	@include mobile {
+		align-items: center;
+	}
 	input {
 		position: absolute;
 		top: 25px;
+		@include tablet {
+			top: 60px;
+			width: 30px;
+			height: 40px;
+		}
+		@include mobile {
+			top: 30px;
+			width: 30px;
+			height: 40px;
+		}
 	}
 	img {
 		margin-top: 18px;
@@ -154,6 +277,12 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	@include tablet {
+		flex-direction: column;
+	}
+	@include tablet {
+		flex-direction: column;
+	}
 	select {
 		min-width: 300px;
 		min-height: 25px;
@@ -166,6 +295,12 @@
 	margin-top: 28px;
 	display: flex;
 	justify-content: space-between;
+	@include tablet {
+		flex-direction: column;
+	}
+	@include tablet {
+		flex-direction: column;
+	}
 	input {
 		border: 1px solid;
 		min-width: 300px;

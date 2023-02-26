@@ -78,7 +78,7 @@ const Register = (props) => {
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
-		console.log(123);
+
 		// console.log({
 		// 	username: username,
 		// 	email: email,

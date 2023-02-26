@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { createAuth } from "../API/authApi";
 import { createAccountGoogle } from "../API/googleApi";
+import RemoveCookie from "../hooks/removeCookie";
+import SetCookie from "../hooks/setCookie";
 export const STATUS = Object.freeze({
 	IDLE: "idle",
 	ERROR: "error",
@@ -75,18 +77,19 @@ export const loginUser = async (user, dispatch, navigate) => {
 	try {
 		const res = await axios.post(
 			"http://localhost:5000/v1/auth/login",
-			user
+			user,
+			{ withCredentials: true }
 		);
-		if (!user) {
-			return;
-		}
-		if (user) {
-			dispatch(setLogin(res.data));
-			dispatch(setStatus(STATUS.SUCCESS));
-			navigate("/");
-		}
+		// RemoveCookie("token");
+		dispatch(setLogin(res.data));
+		// SetCookie("token", JSON.stringify(res.data));
+		dispatch(setStatus(STATUS.SUCCESS));
+		navigate("/");
 	} catch (error) {
 		dispatch(setStatus(STATUS.ERROR));
+		toast.error(
+			"Tài khoản hoặc mật khẩu không đúng,Vui lòng kiểm tra lại!!!"
+		);
 	}
 };
 export const registerUser = async (user, dispatch, navigate) => {
@@ -122,7 +125,7 @@ export const logoutUser = async (dispatch, navigate) => {
 	try {
 		dispatch(setLogout());
 		dispatch(setStatus(STATUS.SUCCESS));
-
+		// RemoveCookie("token");
 		navigate("/");
 	} catch (error) {
 		dispatch(setStatus(STATUS.ERROR));

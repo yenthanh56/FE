@@ -44,7 +44,7 @@ const Login = () => {
 		setValues({ ...values, [e.target.name]: e.target.value });
 	};
 
-	const onSubmitHandler = (e) => {
+	const onSubmitHandler = async (e) => {
 		e.preventDefault();
 
 		if (!values.username) {
@@ -64,7 +64,7 @@ const Login = () => {
 		};
 
 		if (values.username && values.password) {
-			loginUser(newData, dispatch, navigate);
+			await loginUser(newData, dispatch, navigate);
 		}
 	};
 
@@ -113,7 +113,6 @@ const Login = () => {
 		} catch (error) {
 			console.log(error);
 		}
-		console.log(123);
 	};
 	return (
 		<div className={cx("login")} onClick={() => navigate("/")}>

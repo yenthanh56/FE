@@ -103,7 +103,7 @@ export const getAllUserOrder = async (dispatch) => {
 export const getUserOrdered = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get(`http://localhost:5000/v1/${id}`);
+		const res = await axios.get(`http://localhost:5000/v1/userorder/${id}`);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {
@@ -115,7 +115,7 @@ export const deleteUserOrdered = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.delete(
-			`https://api-backend-nine.vercel.app/${id}`
+			`http://localhost:5000/v1/userorder/${id}`
 		);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));

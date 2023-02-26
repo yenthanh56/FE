@@ -35,10 +35,25 @@
 		justify-content: space-around;
 		font-size: 1.5rem;
 		margin-left: auto;
+		@include tablet {
+			padding: 0;
+		}
+		@include mobile {
+			padding: 0;
+		}
+		span {
+			@include mobile {
+				font-size: 0.75rem;
+			}
+			@include tablet {
+				font-size: 0.8rem;
+			}
+		}
 	}
 	&__clear {
 		background-color: #fff;
 		height: 100%;
+		padding: 0.5rem;
 	}
 }
 
@@ -47,4 +62,10 @@
 	background-color: $white;
 	color: $text-second-color;
 	border-radius: 8px;
+	@include tablet {
+		max-width: 704px;
+	}
+	@include mobile {
+		width: 375px;
+	}
 }

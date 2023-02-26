@@ -1,4 +1,6 @@
 import axios from "axios";
+import GetCookie from "../hooks/getCookie";
+import SetCookie from "../hooks/setCookie";
 
 import { apiConfig } from "./apiConfig";
 
@@ -9,7 +11,19 @@ const axiosClient = axios.create({
 	},
 });
 
-axiosClient.interceptors.request.use();
+axiosClient.interceptors.request.use(
+	(config) => {
+		let token = GetCookie("token");
+		if (token) {
+			SetCookie("token", JSON.stringify(token));
+			config.headers.Authorization = `${token}`;
+		}
+		return config;
+	},
+	(error) => {
+		return Promise.reject(error);
+	}
+);
 axiosClient.interceptors.response.use(
 	(response) => {
 		if (response && response.data) {

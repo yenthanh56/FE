@@ -7,6 +7,16 @@
 	// grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 	grid-template-rows: repeat(1, 1fr);
 	// gap: 10rem;
+	@include tablet {
+		@include flex(center, center);
+		flex-direction: column;
+		text-align: center;
+	}
+	@include mobile {
+		@include flex(center, center);
+		flex-direction: column;
+		text-align: center;
+	}
 	&__title {
 		h4 {
 			white-space: nowrap;
@@ -24,5 +34,17 @@
 	&__priceitem {
 	}
 	&__pricetotal {
+	}
+	&__time {
+		@include tablet {
+			font-size: 2rem;
+		}
+		@include mobile {
+			font-size: 1rem;
+		}
+	}
+	&__cancel {
+		padding: 1rem;
+		margin-top: 1rem;
 	}
 }

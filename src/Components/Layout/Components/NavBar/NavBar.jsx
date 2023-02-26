@@ -4,7 +4,7 @@ import className from "classnames/bind";
 import "tippy.js/dist/tippy.css";
 import Tippy from "@tippyjs/react/headless";
 import styles from "./Navbar.module.scss";
-
+import Cookies from "js-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faCaretDown,
@@ -24,6 +24,9 @@ import Search from "../Search/Search";
 import HeaderCart from "../HeaderCart/HeaderCart";
 import { mainNav } from "../fakecategoryHeader/mainNav";
 import Stylecategory from "../Stylecategory/Stylecategory";
+import { setDataNull } from "~/Components/store/cartSlice";
+import GetCookie from "~/Components/hooks/getCookie";
+import RemoveCookie from "~/Components/hooks/removeCookie";
 const cx = className.bind(styles);
 const mainAccounts = [
 	{
@@ -59,6 +62,7 @@ const NavBar = ({ setIsShowModal }) => {
 	const username = useSelector(selectAllUser);
 
 	const { currentUser } = useSelector((state) => state.auth);
+
 	const [open, setOpen] = useState(false);
 	const isshowModalHandler = () => {
 		if (!username) {
@@ -72,6 +76,8 @@ const NavBar = ({ setIsShowModal }) => {
 	const logoutHandler = () => {
 		setIsShowModal(false);
 		logoutUser(dispatch, navigate);
+
+		dispatch(setDataNull());
 	};
 
 	return (
@@ -126,6 +132,7 @@ const NavBar = ({ setIsShowModal }) => {
 													className={cx("box__item")}
 												>
 													{item.display}
+
 													{item.notice === 0 ? (
 														<span
 															className={cx(
@@ -170,8 +177,8 @@ const NavBar = ({ setIsShowModal }) => {
 													currentUser.avatar
 												}
 												alt={
-													username?.username ||
-													"avatar"
+													username?.avatar ||
+													currentUser.avatar
 												}
 											/>
 										</span>

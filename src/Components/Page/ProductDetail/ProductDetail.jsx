@@ -17,9 +17,10 @@ const ProductDetail = () => {
 	const { id } = useParams();
 	const product = useSelector(selectDetailDealHot);
 	const username = useSelector((state) => state.auth?.login?.data);
+	const { currentUser } = useSelector((state) => state.auth);
 
 	const [quantity, setQuantity] = useState(1);
-	console.log(id);
+
 	// let total = useSelector((state) => state.cart.data?.cartTotalAmount);
 	// total = `${total.toFixed(3)} đ`;
 	const priceCurrent = `${product?.price?.toFixed(3)} đ`;
@@ -33,7 +34,6 @@ const ProductDetail = () => {
 	}, [dispatch, id]);
 
 	const decreeseQuantityBtn = (e) => {
-		console.log(typeof quantity);
 		e.preventDefault();
 		setQuantity((pre) => (pre === 1 ? 1 : pre - 1));
 	};
@@ -45,7 +45,7 @@ const ProductDetail = () => {
 
 	const addToCartHandler = (e) => {
 		e.preventDefault();
-		if (username?.username) {
+		if (currentUser?.username || username?.username) {
 			dispatch(
 				addToCart({
 					id: product?._id,
@@ -113,13 +113,21 @@ const ProductDetail = () => {
 				</div>
 			</form>
 			<div className={cx("product__btn")}>
-				<Button large onClick={(e) => addToCartHandler(e)}>
+				<Button
+					large
+					onClick={(e) => addToCartHandler(e)}
+					className={cx("product__btn__add")}
+				>
 					Thêm Vào Giỏ Hàng
 				</Button>
-				<Button large to="/giohang">
+				<Button large to="/giohang" className={cx("product__btn__go")}>
 					Đi Đến Giỏ Hàng
 				</Button>
-				<Button large to="/deal-hot">
+				<Button
+					large
+					to="/deal-hot"
+					className={cx("product__btn__buy")}
+				>
 					Tiếp Tục Mua Hàng
 				</Button>
 			</div>

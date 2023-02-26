@@ -33,6 +33,8 @@ const Cart = (props) => {
 	const phoneRef = useRef();
 
 	const username = useSelector((state) => state.auth?.login?.data);
+	const { currentUser } = useSelector((state) => state.auth);
+
 	const products = useSelector(selectAllCart);
 	// const total = useSelector((state) => state.cart.data?.cartTotalAmount);
 
@@ -147,7 +149,7 @@ const Cart = (props) => {
 		e.preventDefault();
 
 		const newData = {
-			username: username?.username,
+			username: username?.username || currentUser?.username,
 			address: address,
 			city: city,
 			district: district,
@@ -164,7 +166,7 @@ const Cart = (props) => {
 			priceTotal: totalPrice(),
 			image: products?.map((item) => item?.image),
 			paymentBy: checked,
-			userorder: username?._id,
+			userorder: username?._id || currentUser?._id,
 		};
 
 		if (!address) {
@@ -258,6 +260,12 @@ const Cart = (props) => {
 	const onChangePhone = (e) => {
 		setPhone(e.target.value);
 	};
+
+	useEffect(() => {
+		if (!username) {
+			navigate("/users/login");
+		}
+	}, [username, navigate]);
 
 	return (
 		<div className={cx("container")}>
@@ -401,7 +409,11 @@ const Cart = (props) => {
 							))}
 							<div>
 								{checked === "MOMO" && (
-									<img src={QRMOMO} alt="QRMOMO" />
+									<img
+										src={QRMOMO}
+										alt="QRMOMO"
+										width="100%"
+									/>
 								)}
 								{checked === "Thanh Toán Ngân Hàng" && (
 									<div>

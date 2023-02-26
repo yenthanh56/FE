@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import className from "classnames/bind";
 import styles from "./Search.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -43,7 +43,6 @@ const Search = () => {
 	const onHideResultSearchHandler = () => {
 		setSearchShow(false);
 	};
-	console.log(searchResult);
 
 	useEffect(() => {
 		const fetchApi = async () => {
@@ -70,8 +69,9 @@ const Search = () => {
 	return (
 		<Tippy
 			interactive
-			visible={searchShow && searchResult.length > 0}
+			visible={searchShow && searchValue && searchResult.length > 0}
 			placement="bottom-start"
+			arrow={true}
 			render={(attrs) => {
 				return (
 					<div className={cx("search__box")} tabIndex="-1" {...attrs}>
@@ -82,7 +82,11 @@ const Search = () => {
 							{searchResult &&
 								searchResult.length > 0 &&
 								searchResult.map((data) => (
-									<ProductItem data={data} key={data._id} setSearchShow={setSearchShow} />
+									<ProductItem
+										data={data}
+										key={data._id}
+										setSearchShow={setSearchShow}
+									/>
 								))}
 						</Wrapper>
 					</div>

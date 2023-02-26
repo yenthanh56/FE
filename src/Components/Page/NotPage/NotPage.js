@@ -14,11 +14,7 @@ const NotPage = () => {
 				src="https://www.pngfind.com/pngs/m/272-2727925_continue-shopping-empty-cart-png-transparent-png.png"
 				alt="payempty"
 			/>
-			<Button
-				large
-				to="/users/login"
-				className={cx("page__not__Actions")}
-			>
+			<Button large to="/" className={cx("page__not__Actions")}>
 				Tiếp tục mua hàng
 			</Button>
 		</div>

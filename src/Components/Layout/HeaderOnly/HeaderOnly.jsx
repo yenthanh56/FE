@@ -8,8 +8,6 @@ import Login from "~/Components/Page/auth/Login/Login";
 
 const HeaderOnly = ({ children }) => {
 	const userAdmin = useSelector(selectAllUser);
-	const navigate = useNavigate();
-	console.log(userAdmin);
 
 	return (
 		<div>

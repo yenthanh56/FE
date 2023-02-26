@@ -15,9 +15,8 @@ export const InputsLogin = [
 		name: "password",
 		type: "password",
 		placeholder: "Mật Khẩu",
-		errorMessage:
-			"Mật Khẩu bắt buộc từ 8 đến 20 ký tự,ít nhất 1 chữ cái,1 số, 1 ký tự đặc biệt",
-		pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+		errorMessage: "Bạn Phải Nhập Mật Khẩu",
+		// pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
 		label: "Mật Khẩu",
 		required: true,
 	},

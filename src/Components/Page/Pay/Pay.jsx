@@ -24,6 +24,8 @@ const Pay = () => {
 	const user = useSelector((state) => state.auth?.login?.data);
 
 	const usersOrder = useSelector(userOrdered);
+	const { currentUser } = useSelector((state) => state.auth);
+	console.log(usersOrder);
 
 	const confirmOrderHandler = () => {
 		dispatch(setDataNull());
@@ -32,8 +34,6 @@ const Pay = () => {
 
 	const deleteOrderHandler = (id) => {
 		setLoading(true);
-
-		console.log(id);
 
 		if (user?._id) {
 			navigate(`/cancelorder/${id}`);
@@ -45,24 +45,28 @@ const Pay = () => {
 	useEffect(() => {
 		setLoading(true);
 
-		getAllUserOrder(dispatch);
 		if (user?.username) {
 			getUserOrdered(dispatch, user?._id);
 			setLoading(false);
 		}
 	}, [dispatch, user?._id, user?.username, usersOrder?.orders?.length > 0]);
 
+	useEffect(() => {
+		if (!user && !currentUser) {
+			navigate("/users/login");
+		}
+	}, [user, currentUser]);
 	if (loading) {
 		return (
 			<section style={{ textAlign: "center", color: "#000" }}>
-				<p>Loading....</p>
+				<p>Loading...</p>
 			</section>
 		);
 	}
 
 	return (
 		<>
-			{usersOrder?.length < 0 || !user?.username ? (
+			{!usersOrder || usersOrder?.orders?.length === 0 || !user ? (
 				<NotPage />
 			) : (
 				<form className={cx("container")}>
@@ -84,33 +88,22 @@ const Pay = () => {
 								<span>Tổng : {`${total?.toFixed(3)}`}</span>
 							</div> */}
 
-						{usersOrder &&
-							usersOrder?.length > 0 &&
-							usersOrder?.map((cartOrder) => {
-								return (
-									<PayItem
-										cartOrder={cartOrder}
-										key={cartOrder?._id}
-										deleteOrder={() =>
-											deleteOrderHandler(cartOrder?._id)
-										}
-									/>
-								);
-							})}
-
-						{usersOrder?.length === 0 && (
-							<div
-								style={{
-									textAlign: "center",
-									marginTop: "24px",
-								}}
-							>
-								<img
-									src="https://www.pngfind.com/pngs/m/272-2727925_continue-shopping-empty-cart-png-transparent-png.png"
-									alt="payempty"
-								/>
-							</div>
-						)}
+						{(currentUser && usersOrder?.orders?.length > 0) ||
+							(usersOrder &&
+								usersOrder?.orders?.length > 0 &&
+								usersOrder?.orders?.map((cartOrder) => {
+									return (
+										<PayItem
+											cartOrder={cartOrder}
+											key={cartOrder?._id}
+											deleteOrder={() =>
+												deleteOrderHandler(
+													cartOrder?._id
+												)
+											}
+										/>
+									);
+								}))}
 
 						<div className={cx("pay__actions")}>
 							<Button
@@ -129,17 +122,3 @@ const Pay = () => {
 };
 
 export default Pay;
-
-//  (
-// 	<div
-// 		style={{
-// 			textAlign: "center",
-// 			marginTop: "24px",
-// 		}}
-// 	>
-// 		<img
-// 			src="https://www.pngfind.com/pngs/m/272-2727925_continue-shopping-empty-cart-png-transparent-png.png"
-// 			alt="payempty"
-// 		/>
-// 	</div>
-// )

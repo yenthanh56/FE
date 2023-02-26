@@ -9,21 +9,21 @@ import {
 	getUserOrdered,
 } from "~/Components/store/order/orderSlice";
 const cx = classNames.bind(styles);
-const PayItem = ({ cartOrder, ...props }) => {
-	const dispatch = useDispatch();
-	let amount = cartOrder?.amount;
-	let priceItem = cartOrder?.priceItem;
-	let priceTotal = cartOrder?.priceTotal;
-	let titleProduct = cartOrder?.titleProduct;
-	let username = cartOrder?.username;
-	let time = cartOrder?.createdAt;
-	let address = cartOrder?.address;
-	let city = cartOrder?.city;
-	let district = cartOrder?.district;
-	let ward = cartOrder?.ward;
-	let phone = +cartOrder?.phone;
-	let idUserOrdered = cartOrder?._id;
+const PayItem = ({ cartOrder, currentUser, ...props }) => {
+	let amount = cartOrder?.amount || currentUser?.amount;
+	let priceItem = cartOrder?.priceItem || currentUser?.priceItem;
+	let priceTotal = cartOrder?.priceTotal || currentUser?.priceTotal;
+	let titleProduct = cartOrder?.titleProduct || currentUser?.titleProduct;
+	let username = cartOrder?.username || currentUser?.username;
+	// let time = cartOrder?.createdAt;
+	// let address = cartOrder?.address;
+	// let city = cartOrder?.city;
+	// let district = cartOrder?.district;
+	// let ward = cartOrder?.ward;
+	// let phone = +cartOrder?.phone;
+	// let idUserOrdered = cartOrder?._id;
 	const { deleteOrder } = props;
+	// console.log(cartOrder);
 
 	const handleDelete = (e) => {
 		e.preventDefault();
@@ -50,12 +50,16 @@ const PayItem = ({ cartOrder, ...props }) => {
 					<div key={index}>{item}</div>
 				))}
 			</div>
-			<div className={cx("payitem__pricetotal")}>{priceTotal}</div>
+			<div className={cx("payitem__pricetotal")}>Tổng:{priceTotal}đ</div>
 			<div className={cx("payitem__time")}>
 				{moment(cartOrder?.createdAt).format("LLLL")}
 			</div>
 			<div>
-				<Button small onClick={handleDelete}>
+				<Button
+					small
+					onClick={handleDelete}
+					className={cx("payitem__cancel")}
+				>
 					Hủy Đơn Hàng
 				</Button>
 			</div>

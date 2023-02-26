@@ -6,7 +6,16 @@
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-rows: repeat(1, 1fr);
-
+	@include tablet {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+	}
+	@include mobile {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+	}
 	&__title {
 		@include flex(center, unset);
 		&__name {
