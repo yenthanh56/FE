@@ -60,11 +60,12 @@ export default authSlice.reducer;
 
 // http://localhost:8080/v1/auth/login
 // http://localhost:8080/v1/auth/register
-// https://api-backend-nine.vercel.app/v1/user
+//https://be-weld.vercel.app/v1/userorder
+// https://be-weld.vercel.app/
 export const getAllUser = async (dispatch) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get("http://localhost:5000/v1/userorder");
+		const res = await axios.get("https://be-weld.vercel.app/v1/userorder");
 		dispatch(setLogin(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {
@@ -76,7 +77,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 
 	try {
 		const res = await axios.post(
-			"http://localhost:5000/v1/auth/login",
+			"https://be-weld.vercel.app/v1/auth/login",
 			user,
 			{ withCredentials: true }
 		);
@@ -96,7 +97,7 @@ export const registerUser = async (user, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		// const res = await axios.post(
-		// 	"http://localhost:5000/v1/auth/register",
+		// 	"https://be-weld.vercel.app/v1/auth/register",
 		// 	user
 		// );
 		const res = await createAuth(user);
