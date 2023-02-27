@@ -79,7 +79,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 		const res = await axios.post(
 			"https://be-weld.vercel.app/v1/auth/login",
 			user,
-			{ withCredentials: true }
+			{ withCredentials: true, credentials: "include" }
 		);
 		// RemoveCookie("token");
 		dispatch(setLogin(res.data));
@@ -100,7 +100,10 @@ export const registerUser = async (user, dispatch, navigate) => {
 		// 	"https://be-weld.vercel.app/v1/auth/register",
 		// 	user
 		// );
-		const res = await createAuth(user);
+		const res = await createAuth(user, {
+			withCredentials: true,
+			credentials: "include",
+		});
 		dispatch(setLogin(res));
 		dispatch(setStatus(STATUS.SUCCESS));
 		navigate("/users/login");
