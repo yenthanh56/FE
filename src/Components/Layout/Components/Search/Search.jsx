@@ -52,7 +52,7 @@ const Search = () => {
 			}
 			try {
 				let res = await axios.get(
-					`http://localhost:5000/v1/dealhot/search?q=${encodeURIComponent(
+					`https://be-weld.vercel.app/v1/dealhot/search?q=${encodeURIComponent(
 						debouced
 					)}`
 				);
