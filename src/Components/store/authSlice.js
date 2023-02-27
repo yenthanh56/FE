@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { createAuth } from "../API/authApi";
+import { createAuth, loginAuth } from "../API/authApi";
 import { createAccountGoogle } from "../API/googleApi";
 import RemoveCookie from "../hooks/removeCookie";
 import SetCookie from "../hooks/setCookie";
@@ -76,12 +76,15 @@ export const loginUser = async (user, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 
 	try {
-		const res = await axios.post(
-			"https://be-weld.vercel.app/v1/auth/login",
-			user
-		);
+		// const res = await axios.post(
+		// 	"https://be-weld.vercel.app/v1/auth/login",
+		// 	user,{
+
+		// 	}
+		// );
+		const res = await loginAuth(user);
 		// RemoveCookie("token");
-		dispatch(setLogin(res.data));
+		dispatch(setLogin(res));
 		// SetCookie("token", JSON.stringify(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 		navigate("/");
