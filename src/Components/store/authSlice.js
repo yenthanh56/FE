@@ -65,7 +65,7 @@ export default authSlice.reducer;
 export const getAllUser = async (dispatch) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get("https://be-weld.vercel.app/v1/userorder");
+		const res = await axios.get("https://be-livid.vercel.app/v1/userorder");
 		dispatch(setLogin(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {

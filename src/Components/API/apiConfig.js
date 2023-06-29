@@ -1,3 +1,3 @@
 export const apiConfig = {
-	baseUrl: "https://be-weld.vercel.app/v1/",
+	baseUrl: "https://be-livid.vercel.app/v1/",
 };
