@@ -72,7 +72,7 @@ const Login = () => {
 		signInWithPopup(auth, provider)
 			.then((result) => {
 				axios
-					.post("https://be-weld.vercel.app/v1/auth/google", {
+					.post("https://be-livid.vercel.app/v1/auth/google", {
 						username: result.user.displayName,
 						email: result.user.email,
 						avatar: result.user.photoURL,
