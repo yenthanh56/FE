@@ -66,7 +66,7 @@ const Register = (props) => {
 		},
 		{
 			id: "4",
-			name: "confirmPassword",
+			name: "cf_password",
 			type: "password",
 			placeholder: "Xác Nhận Mật Khẩu",
 			errorMessage: "Mật khẩu không trùng khớp",
@@ -79,29 +79,6 @@ const Register = (props) => {
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
 
-		// console.log({
-		// 	username: username,
-		// 	email: email,
-		// 	password: password,
-		// 	cf_password: cf_password,
-		// });
-
-		// if (!username) {
-		// 	usernameRef.current.focus();
-		// 	return;
-		// }
-		// if (!email) {
-		// 	emailRef.current.focus();
-		// 	return;
-		// }
-		// if (!password) {
-		// 	passwordRef.current.focus();
-		// 	return;
-		// }
-		// if (!cf_password) {
-		// 	cf_passwordRef.current.focus();
-		// 	return;
-		// }
 		const newData = {
 			username: values.username,
 			email: values.email,

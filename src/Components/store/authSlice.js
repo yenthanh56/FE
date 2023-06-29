@@ -58,10 +58,6 @@ export const { setLogin, setRegister, setLogout, setStatus, setLoginSuccess } =
 
 export default authSlice.reducer;
 
-// http://localhost:8080/v1/auth/login
-// http://localhost:8080/v1/auth/register
-//https://be-weld.vercel.app/v1/userorder
-// https://be-weld.vercel.app/
 export const getAllUser = async (dispatch) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
@@ -76,16 +72,10 @@ export const loginUser = async (user, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 
 	try {
-		// const res = await axios.post(
-		// 	"https://be-weld.vercel.app/v1/auth/login",
-		// 	user,{
-
-		// 	}
-		// );
 		const res = await loginAuth(user);
-		// RemoveCookie("token");
+
 		dispatch(setLogin(res));
-		// SetCookie("token", JSON.stringify(res.data));
+
 		dispatch(setStatus(STATUS.SUCCESS));
 		navigate("/");
 	} catch (error) {
@@ -98,10 +88,6 @@ export const loginUser = async (user, dispatch, navigate) => {
 export const registerUser = async (user, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		// const res = await axios.post(
-		// 	"https://be-weld.vercel.app/v1/auth/register",
-		// 	user
-		// );
 		const res = await createAuth(user);
 		dispatch(setLogin(res));
 		dispatch(setStatus(STATUS.SUCCESS));

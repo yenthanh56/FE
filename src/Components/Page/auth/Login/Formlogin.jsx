@@ -11,19 +11,6 @@ const Formlogin = (props) => {
 	const { label, onChange, type, value, errorMessage, id, ...inputProps } =
 		props;
 	const [InputType, ToogleIcon] = usePassWordToogle();
-	// const [isHiddenPassword, setIsHiddenPassword] = useState(true);
-	// login social media
-	// const google = () => {
-	// 	window.open("http://localhost:5000/auth/google", "_self");
-	// };
-
-	// const github = () => {
-	// 	window.open("http://localhost:5000/auth/github", "_self");
-	// };
-
-	// const facebook = () => {
-	// 	window.open("http://localhost:5000/auth/facebook", "_self");
-	// };
 
 	const focusHandler = () => {
 		setFocused(true);
@@ -63,10 +50,10 @@ const Formlogin = (props) => {
 					onChange={onChange}
 					onBlur={focusHandler}
 					onFocus={() =>
-						inputProps.name === "confirmPassword" &&
-						setFocused(true)
+						inputProps.name === "cf_password" && setFocused(true)
 					}
 					focused={focused.toString()}
+					value={value}
 					required
 					// type={isHiddenPassword ? "password" : "text"} // c1
 					type={type === "password" ? InputType : undefined}
