@@ -51,11 +51,8 @@ const orderSlice = createSlice({
 		},
 	},
 });
-//"https://apitiki-myapp.herokuapp.com/v1/userorder/create"
-// https://apitiki-myapp.herokuapp.com/v1/userorder
-// https://backend-api-kohl.vercel.app
+
 export const selectAllUserOrder = (state) => state.order?.user?.data;
-// export const showAllOrdered = (state) => state.order?.ordered;
 
 export const userOrdered = (state) => state.order?.userOrdered;
 
@@ -70,14 +67,11 @@ export const {
 
 export default orderSlice.reducer;
 
-// https://be-weld.vercel.app/
-// http://localhost:5000/v1/userorder/create
-
 export const createUserOrder = async (userOrder, dispatch, navigate) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.post(
-			"https://be-weld.vercel.app/v1/userorder/create",
+			"https://be-livid.vercel.app/v1/userorder/create",
 			userOrder
 		);
 
@@ -89,13 +83,11 @@ export const createUserOrder = async (userOrder, dispatch, navigate) => {
 		dispatch(setStatus(STATUS.ERROR));
 	}
 };
-//`https://apitiki-myapp.herokuapp.com/v1/userorder`
-//`http://localhost:8080/v1/userorder`
-//https://backend-api-lake.vercel.app/
+
 export const getAllUserOrder = async (dispatch) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
-		const res = await axios.get(`https://be-weld.vercel.app/v1/userorder`);
+		const res = await axios.get(`https://be-livid.vercel.app/v1/userorder`);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
 	} catch (error) {
@@ -107,7 +99,7 @@ export const getUserOrdered = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.get(
-			`https://be-weld.vercel.app/v1/userorder/${id}`
+			`https://be-livid.vercel.app/v1/userorder/${id}`
 		);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
@@ -120,7 +112,7 @@ export const deleteUserOrdered = async (dispatch, id) => {
 	dispatch(setStatus(STATUS.LOADING));
 	try {
 		const res = await axios.delete(
-			`https://be-weld.vercel.app/v1/userorder/${id}`
+			`https://be-livid.vercel.app/v1/userorder/${id}`
 		);
 		dispatch(setUserOrdered(res.data));
 		dispatch(setStatus(STATUS.SUCCESS));
