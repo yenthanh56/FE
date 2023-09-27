@@ -73,9 +73,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 
 	try {
 		const res = await loginAuth(user);
-
 		dispatch(setLogin(res));
-
 		dispatch(setStatus(STATUS.SUCCESS));
 		navigate("/");
 	} catch (error) {
